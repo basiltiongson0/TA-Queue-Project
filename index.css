@@ -1,7 +1,7 @@
 body{
-    /*background-color: aquamarine;*/
+    background-color: aquamarine;
     /*background-image: url('C:\Users\basil\Downloads\toof.jpg');*/
-    background-image: url('toof.jpg');
+    /*background-image: url('toof.jpg');*/
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
