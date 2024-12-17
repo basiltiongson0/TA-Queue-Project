@@ -87,27 +87,10 @@
 </head>
 
 <body>
-    <!--TA access input and button-->
-    <button onclick="checkInput()">TA Access</button>
-    <input type="text" id="ta-input" placeholder="Enter TA key">
-    <script>
-        function checkInput(){
-            var correctKey = "key";
-            var input = document.getElementById('ta-input').value;
-            if(input == correctKey){
-                window.location.href = "form.html";
-            }
-        }
-    </script>
-    <!---------------->
     <!--adds names to queue-->
     <input type="text" id="name" placeholder="Name">
     <button id="name-button">Add Your Name</button>
     <ul id="name-list"></ul>
-
-    <!-- TA ONLY -->
-    <!--removes names from queue-->
-    <button id="remove-button">Next Student</button>
 
     <div class = "links">
         <a href="dropdown.html">Back to Classes</a>

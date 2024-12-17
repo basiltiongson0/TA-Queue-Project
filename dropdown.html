@@ -4,21 +4,218 @@
 <head>
     <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <title>drop down</title> 
-    <link rel="stylesheet" href="ddstyles.css">
+    <title>CS Course List</title> 
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            color: #333;
+            text-align: center;
+        }
+
+        h1 {
+            color: #68c6f2;
+        }
+
+        .dropdown {
+            margin: 20px auto;
+            display: inline-block;
+            position: relative;
+        }
+
+        .dropdown-button {
+            padding: 10px 20px;
+            font-size: 18px;
+            color: white;
+            background-color: #68c6f2;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .dropdown-button:hover {
+            background-color: #5aaed9;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            z-index: 1;
+            min-width: 200px;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 10px;
+            color: #333;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block; /* Show dropdown on hover */
+        }
+    </style>
+</head>
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>TA Hours Queue</title> <!-- this is the tab name -->
+    <script src="https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0; 
+            padding: 0; 
+            background-color: #f8f9fa; 
+            color: #333; 
+            text-align: center; 
+        }
+
+        h1 {
+            margin: 20px 0; 
+            color: #68c6f2; 
+        }
+
+        /* input and buttons here */ 
+        input {
+            padding: 10px; 
+            margin: 10px;
+            border: 1px solid #ccc; 
+            border-radius: 4px; 
+            font-size: 16px; 
+            width: 200px; 
+        }
+
+        button {
+            padding: 10px 15px; 
+            font-size: 16px; 
+            color: white; 
+            background-color: #68c6f2; 
+            border: none;
+            border-radius: 5px; 
+            cursor: pointer; 
+            margin: 10px; 
+        }
+
+        button:hover {
+            background-color: white; 
+            color: grey; 
+        }
+
+        /* list styling here */ 
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 20px auto;
+            max-width: 300px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        li {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        li:last-child {
+            border-bottom: none;
+        }
+
+        /* links here */
+        .links {
+            margin-top: 30px;
+        }
+
+        .links a {
+            color: #3ea3d2;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 
 <body>
-    
-    <div class = "dropdown">
-        <button class="dropdown-button">List of Classes</button>
+    <!-- this will need special keys -->
+    <!--TA access input and button-->
+    <button onclick="checkInput()">TA Access</button>
+    <input type="text" id="ta-input" placeholder="Enter TA key">
+    <script>
+        function checkInput(){
+            var correctKey = "key";
+            var input = document.getElementById('ta-input').value;
+            if(input == correctKey){
+                window.location.href = "form.html";
+            }
+        }
+    </script>
+
+    <h1>Computer Science Courses</h1>
+
+    <!-- 100 Level Courses -->
+    <div class="dropdown">
+        <button class="dropdown-button">100 Level Courses</button>
         <div class="dropdown-content">
-            <a href="teeth.html">home</a>
-            <a href="form.html">Class 1</a>
+            <a href="student-form.html">111 ~ Class Name</a>
+            <a href="cs111.html">111 ~ Class Name</a>
+            <a href="cs151.html">151 ~ Class Name</a>
         </div>
     </div>
 
+    <!-- 200 Level Courses -->
+    <div class="dropdown">
+        <button class="dropdown-button">200 Level Courses</button>
+        <div class="dropdown-content">
+            <a href="cs251.html">251 ~ Data Structures</a>
+            <a href="cs211.html">211 ~ Programming Practicum</a>
+            <a href="cs261.html">261 ~ whatever its called</a>
+        </div>
+    </div>
 
-    <script src="dds.js"></script>
+    <!-- 300 Level Courses -->
+    <div class="dropdown">
+        <button class="dropdown-button">300 Level Courses</button>
+        <div class="dropdown-content">
+            <a href="cs301.html">301 ~ Class Name</a>
+            <a href="cs341.html">341 ~ Class Name</a>
+            <a href="cs342.html">342 ~ Class Name</a>
+        </div>
+    </div>
+
+    <!-- 400 Level Courses -->
+    <div class="dropdown">
+        <button class="dropdown-button">400 Level Courses</button>
+        <div class="dropdown-content">
+            <a href="cs401.html">401 ~ Class Name</a>
+            <a href="cs479.html">479 ~ Class Name</a>
+            <a href="cs480.html">480 ~ Class Name</a>
+        </div>
+    </div>
+
 </body>
+
 </html>
