@@ -4,26 +4,100 @@
 <head>
     <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <title>TEEF FORM</title> 
+    <title>TA Hours Queue</title> <!-- this is the tab name -->
     <script src="https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
 
-    <!--script src="https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore-compat.js"></script-->
-    <!--script src="https://www.gstatic.com/firebasejs/11.1.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/11.1.0/firebase-analytics.js"></script-->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0; 
+            padding: 0; 
+            background-color: #f8f9fa; 
+            color: #333; 
+            text-align: center; 
+        }
+
+        h1 {
+            margin: 20px 0; 
+            color: #007bff; 
+        }
+
+        /* input and buttons here */ 
+        input {
+            padding: 8px; 
+            margin: 10px;
+            border: 1px solid #ccc; 
+            border-radius: 4px; 
+            font-size: 16px; 
+            width: 200px; 
+        }
+
+        button {
+            padding: 10px 15px; 
+            font-size: 16px; 
+            color: white; 
+            background-color: #68c6f2; 
+            border: none;
+            border-radius: 5px; 
+            cursor: pointer; 
+            margin: 10px; 
+        }
+
+        button:hover {
+            background-color: white; 
+            color: grey; 
+        }
+
+        /* list styling here */ 
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 20px auto;
+            max-width: 300px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        li {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        li:last-child {
+            border-bottom: none;
+        }
+
+        /* links here */
+        .links {
+            margin-top: 30px;
+        }
+
+        .links a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 
 <body>
     <!--adds names to queue-->
-    <button id="name-button">Whats ur name</button>
+    <button id="name-button">List Your Name</button>
     <input type="text" id="name" placeholder="name-input">
     <ul id="name-list"></ul>
 
+    <!-- TA ONLY -->
     <!--removes names from queue-->
-    <button id="remove-button">yeet</button>
+    <button id="remove-button">Next Student</button>
 
     <div class = "links">
-        <a href="index.html">home</a>
+        <a href="index.html">Back to Classes</a>
     </div>
 
 
