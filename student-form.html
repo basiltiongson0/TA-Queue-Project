@@ -2,54 +2,52 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8"> 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <title>TA Hours Queue</title> <!-- this is the tab name -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TA Hours Queue</title>
     <script src="https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
 
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 0; 
-            padding: 0; 
-            background-color: #f8f9fa; 
-            color: #333; 
-            text-align: center; 
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+            text-align: center;
         }
 
         h1 {
-            margin: 20px 0; 
-            color: #21248e; 
+            margin: 20px 0;
+            color: #21248e;
         }
 
-        /* input and buttons here */ 
         input {
-            padding: 10px; 
+            padding: 10px;
             margin: 10px;
-            border: 1px solid #ccc; 
-            border-radius: 4px; 
-            font-size: 16px; 
-            width: 200px; 
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            width: 200px;
         }
 
         button {
-            padding: 10px 15px; 
-            font-size: 16px; 
-            color: white; 
-            background-color: #21248e; 
+            padding: 10px 15px;
+            font-size: 16px;
+            color: white;
+            background-color: #21248e;
             border: 1px solid #21248e;
-            border-radius: 5px; 
-            cursor: pointer; 
-            margin: 10px; 
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
         }
 
         button:hover {
-            background-color: white; 
-            color: #21248e; 
+            background-color: white;
+            color: #21248e;
         }
 
-        /* list styling here */ 
         ul {
             list-style: none;
             padding: 0;
@@ -69,7 +67,6 @@
             border-bottom: none;
         }
 
-        /* links here */
         .links {
             margin-top: 30px;
         }
@@ -83,6 +80,55 @@
         .links a:hover {
             text-decoration: underline;
         }
+
+        .body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            width: 200px;
+        }
+
+        #mySelect {
+            padding: 10px;
+            margin: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            background-color: white; /* #f8f9fa; */
+            color: #ccc;
+            width: 220px;
+            appearance: none; /* Removes default dropdown arrow*/
+            cursor: pointer;
+            text-align: center;
+        }
+
+        #mySelect:hover {
+            background-color: #e6e6f2;
+            border-color: #21248e;
+        }
+
+        #mySelect option {
+            padding: 10px;
+            background-color: #fff;
+            color: #21248e;
+            font-size: 16px;
+        }
+
     </style>
 </head>
 
@@ -99,71 +145,42 @@
             return urlParams.get(name);
         }
 
-
         // Retrieve the 'password' parameter from the URL
         var password = getURLParameter("password");
 
 
         // Use the password variable in your JavaScript code
         if (password) {
-            // Set a string equal to the password (for example, to display it or use it)
+            // Set a string equal to the password
             var myPasswordString = password;
 
             // Display the password on the page
             document.getElementById("class").textContent = myPasswordString;
         } else {
-            // If no password parameter is found, you can display a message
+            // If no password parameter is found
             document.getElementById("class").textContent = "Uh oh! No password!";
         }
     </script>
 
     <!--adds names to queue-->
-    <input type="text" id="name" placeholder="Name">
-    <button id="name-button">Add Your Name</button>
-
-
-    <!--new help type select-->
-    <select id="mySelect" placeholder="Question Type">
-        <option value="project">Project</option>
-        <option value="homework">Homework</option>
-        <option value="lab">Lab</option>
-        <option value="other">Other</option>
-    </select>
-
+    <div class="input-container">
+        <input type="text" id="name" placeholder="Name">
+        <select id="mySelect" placeholder="Question Type">
+            <option value="" disabled selected>Question Type</option>
+            <option value="project">Project</option>
+            <option value="homework">Homework</option>
+            <option value="lab">Lab</option>
+            <option value="other">Other</option>
+        </select>
+        <button id="name-button">Add to Queue</button>
+    </div>
 
     <div class="container">
         <ul id="name-list"></ul>
-        <!--list to display help types-->
         <ul id="help-list"></ul>
     </div>
-    <style>
-       
-        .body {
-            display: flex;
-            justify-content: center; 
-            align-items: center;  
-            height: 100vh;      
-            margin: 0;                
-        }
 
-
-        .container {
-            display: flex; 
-            gap: 20px;               
-            justify-content: center; 
-            align-items: flex-start; 
-        }
-
-
-        ul {
-            list-style-type: none;  
-            padding: 0;              
-            margin: 0;               
-            width: 200px;            
-        }
-    </style>
-
-    <div class = "links">
+    <div class="links">
         <a href="dropdown.html">Back to Classes</a>
     </div>
 
@@ -177,7 +194,7 @@
             })
             .catch(error => console.error('Header...? error: ', error));
     </script>
-    <script type="module" src ="script.js"></script>
+    <script type="module" src="script.js"></script>
 </body>
 
 </html>

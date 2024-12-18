@@ -20,7 +20,7 @@
 
         h1 {
             margin: 20px 0; 
-            color: #68c6f2; 
+            color: #21248e; 
         }
 
         /* input and buttons here */ 
@@ -83,6 +83,55 @@
         .links a:hover {
             text-decoration: underline;
         }
+
+        #mySelect {
+            padding: 10px;
+            margin: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            background-color: white; /* #f8f9fa; */
+            color: #ccc;
+            width: 220px;
+            appearance: none; /* Removes default dropdown arrow*/
+            cursor: pointer;
+            text-align: center;
+        }
+
+        #mySelect:hover {
+            background-color: #e6e6f2;
+            border-color: #21248e;
+        }
+
+        #mySelect option {
+            padding: 10px;
+            background-color: #fff;
+            color: #21248e;
+            font-size: 16px;
+        }
+        
+        /* moves the queue display to the center */ 
+        .body {
+            display: flex;
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            margin: 0;    
+        }
+
+        .container {
+            display: flex; 
+            gap: 20px;  
+            justify-content: center; 
+            align-items: flex-start; 
+        }
+
+        ul {
+            list-style-type: none; 
+            padding: 0;  
+            margin: 0;
+            width: 200px; 
+        }
     </style>
 </head>
 
@@ -104,54 +153,30 @@
     </script>
 
     <!--adds names to queue-->
-    <input type="text" id="name" placeholder="Name">
-    <button id="name-button">Add Your Name</button>
+    <div class="input-container">
+        <input type="text" id="name" placeholder="Name">
+        <select id="mySelect" placeholder="Question Type">
+            <option value="" disabled selected>Question Type</option>
+            <option value="project">Project</option>
+            <option value="homework">Homework</option>
+            <option value="lab">Lab</option>
+            <option value="other">Other</option>
+        </select>
+        <button id="name-button">Add to Queue</button>
+    </div>
 
-
-    <!--new help type select-->
-    <select id="mySelect" placeholder="Question Type">
-        <option value="project">Project</option>
-        <option value="homework">Homework</option>
-        <option value="lab">Lab</option>
-        <option value="other">Other</option>
-    </select>
-
-
+    <!-- TA ONLY -->
+    <!--removes names from queue-->
     <div class="container">
+        <!-- top of queue next student button -->
+        <div class="top-item-container">
+            <button id="remove-button">Next Student</button>
+        </div>
+    
         <ul id="name-list"></ul>
         <!--list to display help types-->
         <ul id="help-list"></ul>
     </div>
-    <style>
-       
-        .body {
-            display: flex;
-            justify-content: center; 
-            align-items: center; 
-            height: 100vh; 
-            margin: 0;    
-        }
-
-
-        .container {
-            display: flex; 
-            gap: 20px;  
-            justify-content: center; 
-            align-items: flex-start; 
-        }
-
-
-        ul {
-            list-style-type: none; 
-            padding: 0;  
-            margin: 0;
-            width: 200px; 
-        }
-    </style>
-
-    <!-- TA ONLY -->
-    <!--removes names from queue-->
-    <button id="remove-button">Next Student</button>
 
     <div class = "links">
         <a href="dropdown.html">Back to Classes</a>
