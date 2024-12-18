@@ -88,7 +88,7 @@
 
 <body>
     <div id="header"></div>
-    
+
     <!--- for password storage and proper redirection -->
     <span id="class"></span>
    
@@ -109,19 +109,59 @@
             // Set a string equal to the password (for example, to display it or use it)
             var myPasswordString = password;
 
-
             // Display the password on the page
             document.getElementById("class").textContent = myPasswordString;
         } else {
             // If no password parameter is found, you can display a message
-            document.getElementById("class").textContent = "No password provided!";
+            document.getElementById("class").textContent = "Uh oh! No password!";
         }
     </script>
 
     <!--adds names to queue-->
     <input type="text" id="name" placeholder="Name">
     <button id="name-button">Add Your Name</button>
-    <ul id="name-list"></ul>
+
+
+    <!--new help type select-->
+    <select id="mySelect" placeholder="Question Type">
+        <option value="project">Project</option>
+        <option value="homework">Homework</option>
+        <option value="lab">Lab</option>
+        <option value="other">Other</option>
+    </select>
+
+
+    <div class="container">
+        <ul id="name-list"></ul>
+        <!--list to display help types-->
+        <ul id="help-list"></ul>
+    </div>
+    <style>
+       
+        .body {
+            display: flex;
+            justify-content: center; 
+            align-items: center;  
+            height: 100vh;      
+            margin: 0;                
+        }
+
+
+        .container {
+            display: flex; 
+            gap: 20px;               
+            justify-content: center; 
+            align-items: flex-start; 
+        }
+
+
+        ul {
+            list-style-type: none;  
+            padding: 0;              
+            margin: 0;               
+            width: 200px;            
+        }
+    </style>
 
     <div class = "links">
         <a href="dropdown.html">Back to Classes</a>
@@ -135,7 +175,7 @@
             .then(data => {
                 document.getElementById('header').innerHTML = data;
             })
-            .catch(error => console.error('Error loading header:', error));
+            .catch(error => console.error('Header...? error: ', error));
     </script>
     <script type="module" src ="script.js"></script>
 </body>

@@ -3,94 +3,31 @@
 
 <head>
     <meta charset="UTF-8"> 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CS Course List</title> 
-    <link rel="stylesheet" href="index.css"> <!-- Include your CSS file --> 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f8f9fa;
-            color: #333;
-            text-align: center;
-        }
-
-        h1 {
-            color: #68c6f2;
-            margin-top: 50px; /* spacing below header */
-        }
-
-        .dropdown {
-            margin: 20px auto;
-            display: inline-block;
-            position: relative;
-        }
-
-        .dropdown-button {
-            padding: 10px 20px;
-            font-size: 18px;
-            color: white;
-            background-color: #68c6f2;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .dropdown-button:hover {
-            background-color: #5aaed9;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: white;
-            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-            border-radius: 5px;
-            z-index: 1;
-            min-width: 200px;
-        }
-
-        .dropdown-content a {
-            display: block;
-            padding: 10px;
-            color: #333;
-            text-decoration: none;
-            transition: background-color 0.3s;
-        }
-
-        .dropdown-content a:hover {
-            background-color: #f1f1f1;
-        }
-
-        .dropdown:hover .dropdown-content {
-            display: block; /* Show dropdown on hover */
-        }
-    </style>
-</head>
-
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <title>TA Hours Queue</title> <!-- this is the tab name -->
     <script src="https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
 
     <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
         body {
             font-family: Arial, sans-serif;
             margin: 0; 
-            padding: 100; /* padding so TA access button doesn't overlap heading */
+            padding: 100px; /* padding so TA access button doesn't overlap heading */
             background-color: #f8f9fa; 
+            background-image: url('https://images.vexels.com/media/users/3/129772/isolated/svg/a61ef74b6ebc153b4e713a9ec91f8fe0.svg');
+            background-size: 1300px 1300px;
+            background-position: center -10px;
+            background-repeat: no-repeat;
+            background-attachment: fixed; /* Keeps the image static during scroll */
             color: #333; 
             text-align: center; 
+            max-height: 100vh; 
         }
 
         h1 {
@@ -137,6 +74,7 @@
             border-radius: 5px; 
             cursor: pointer; 
             margin: 10px; 
+            z-index: 2; 
         }
 
         button:hover {
@@ -225,6 +163,7 @@
         .dropdown:hover .dropdown-content {
             display: block;
         }
+
     </style>
 </head>
 
@@ -299,7 +238,7 @@
                 localStorage.setItem("userPassword", input);
                 window.location.href = "form.html";
             } else {
-                alert("Invalid TA key. Please try again.");
+                alert("Sorry! Not a valid TA key. Please try again...");
             }
         }
     </script>
@@ -311,9 +250,11 @@
             .then(data => {
                 document.getElementById('header').innerHTML = data;
             })
-            .catch(error => console.error('Error loading header:', error));
+            .catch(error => console.error('Uh oh... header error:', error));
     </script>
 </body>
 
 
 </html>
+
+<!-- just one -->
