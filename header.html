@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS TA Queue Header</title>
+    <style>
+        /* general reset */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: "Helvetica", "Arial", sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        /* header container */
+        .header {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* stuff is spread across header */ 
+            background-color: white;
+            padding: 10px;
+            border-bottom: 2px solid #ddd; 
+            gap: 15px; 
+        }
+
+        /* Logo */
+        .logo {
+            width: 300px;
+            height: 70px;
+            overflow: hidden; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            background-color: transparent;
+            z-index: 2; 
+        }
+
+        .logo-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* aspect ratio */
+        }
+
+        /* Text Label */
+        .header-text {
+            font-size: 18px;
+            font-weight: bold;
+            color: rgb(8, 29, 115);
+            white-space: nowrap;
+            margin-left: auto; /* pushes to right */
+        }
+
+        /* button container */
+        .button-container {
+            display: flex;
+           /* gap: 5px; Adds spacing between buttons */
+        }
+
+        /* buttons */
+        .header-button {
+            position: relative; 
+            padding: 8px 10px;
+            font-size: 14px;
+            color: #21248e;
+            /* border: 1px solid #ddd; */
+            /* background-color: #f8f9fa; */
+            background-color: transparent; 
+            /* border-radius: 15px; */
+            /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */
+            cursor: pointer;
+            text-decoration: none;
+            margin: 0; 
+            line-height: 1; 
+        }
+
+        .header-button:not(:last-child) {
+            margin-right: 5px; /* spacing between buttons */
+        }
+
+        /* Underline Effect */
+        .header-button::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -3px; /* Adjust the position of underline */
+            width: 0; /* Hidden by default */
+            height: 3px;
+            background-color: #c8102e; /* UIC red */
+            transition: width 0.3s ease; /* Smooth expand */
+        }
+
+        .header-button:hover::after {
+            width: 100%; /* expands fully on hover */
+        }
+
+        .header-button:hover {
+            color: #21248e; /* hover button color */ 
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <div class="header">
+        <!-- Logo -->
+        <div class="logo">
+            <img src="https://logovectorseek.com/wp-content/uploads/2020/07/university-of-illinois-at-chicago-uic-logo-vector.png" alt="UIC Logo" class="logo-image">
+        </div>        
+            
+        <!-- Text -->
+        <div class="header-text">CS TA Queue</div>
+
+        <!-- Buttons (Anchored Right) -->
+        <div class="button-container">
+            <a href="dropdown.html" class="header-button">Courses</a>
+            <a href="#" class="header-button">Whatever</a>
+        </div>
+    </div>
+
+
+</body>
+</html>

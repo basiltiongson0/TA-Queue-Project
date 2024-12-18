@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <title>TA Hours Queue</title> <!-- this is the tab name -->
+    <title>TA Access Queue</title> <!-- this is the tab name -->
     <script src="https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
 
@@ -37,8 +37,8 @@
             padding: 10px 15px; 
             font-size: 16px; 
             color: white; 
-            background-color: #68c6f2; 
-            border: none;
+            background-color: #21248e; 
+            border: 1px solid #21248e;
             border-radius: 5px; 
             cursor: pointer; 
             margin: 10px; 
@@ -46,7 +46,7 @@
 
         button:hover {
             background-color: white; 
-            color: grey; 
+            color: #21248e; 
         }
 
         /* list styling here */ 
@@ -75,7 +75,7 @@
         }
 
         .links a {
-            color: #3ea3d2;
+            color: #21248e;
             text-decoration: none;
             font-weight: bold;
         }
@@ -87,19 +87,22 @@
 </head>
 
 <body>
-    <!--TA access input and button-->
-    <button onclick="checkInput()">TA Access</button>
-    <input type="text" id="ta-input" placeholder="Enter TA key">
+    <div id="header"></div>
+    <!-- to store password to access specific collection -->
+    <span id="class"></span>
     <script>
-        function checkInput(){
-            var correctKey = "key";
-            var input = document.getElementById('ta-input').value;
-            if(input == correctKey){
-                window.location.href = "form.html";
-            }
+        // Retrieve the password from localStorage
+        var storedPassword = localStorage.getItem("userPassword");
+
+
+        if (storedPassword) {
+            // Display the password on the second page (just as an example)
+            document.getElementById("class").textContent = storedPassword;
+        } else {
+            document.getElementById("class").textContent = "No password found.";
         }
     </script>
-    <!---------------->
+
     <!--adds names to queue-->
     <input type="text" id="name" placeholder="Name">
     <button id="name-button">Add Your Name</button>
@@ -113,7 +116,16 @@
         <a href="dropdown.html">Back to Classes</a>
     </div>
 
-
+    <!-- JavaScript to Load Header -->
+    <script>
+        // Fetch and insert header dynamically
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading header:', error));
+    </script>
     <script type="module" src ="script.js"></script>
 </body>
 

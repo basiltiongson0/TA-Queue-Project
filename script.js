@@ -35,7 +35,8 @@ function printNameList() {
 
 // Get data from Firestore
 let currQueue = [];
-const queueDocRef = doc(db, "queues", "queue1"); // Reference to a document
+var classInput = document.getElementById('class').textContent;
+const queueDocRef = doc(db, classInput, "queue1"); // Reference to a document
 getDoc(queueDocRef).then((docSnap) => {
     if (docSnap.exists()) {
         currQueue = docSnap.data().names || [];

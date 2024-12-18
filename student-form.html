@@ -20,7 +20,7 @@
 
         h1 {
             margin: 20px 0; 
-            color: #68c6f2; 
+            color: #21248e; 
         }
 
         /* input and buttons here */ 
@@ -37,8 +37,8 @@
             padding: 10px 15px; 
             font-size: 16px; 
             color: white; 
-            background-color: #68c6f2; 
-            border: none;
+            background-color: #21248e; 
+            border: 1px solid #21248e;
             border-radius: 5px; 
             cursor: pointer; 
             margin: 10px; 
@@ -46,7 +46,7 @@
 
         button:hover {
             background-color: white; 
-            color: grey; 
+            color: #21248e; 
         }
 
         /* list styling here */ 
@@ -75,7 +75,7 @@
         }
 
         .links a {
-            color: #3ea3d2;
+            color: #21248e;
             text-decoration: none;
             font-weight: bold;
         }
@@ -87,6 +87,37 @@
 </head>
 
 <body>
+    <div id="header"></div>
+    
+    <!--- for password storage and proper redirection -->
+    <span id="class"></span>
+   
+    <script>
+        // Function to get a URL parameter by its name
+        function getURLParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+
+        // Retrieve the 'password' parameter from the URL
+        var password = getURLParameter("password");
+
+
+        // Use the password variable in your JavaScript code
+        if (password) {
+            // Set a string equal to the password (for example, to display it or use it)
+            var myPasswordString = password;
+
+
+            // Display the password on the page
+            document.getElementById("class").textContent = myPasswordString;
+        } else {
+            // If no password parameter is found, you can display a message
+            document.getElementById("class").textContent = "No password provided!";
+        }
+    </script>
+
     <!--adds names to queue-->
     <input type="text" id="name" placeholder="Name">
     <button id="name-button">Add Your Name</button>
@@ -96,7 +127,16 @@
         <a href="dropdown.html">Back to Classes</a>
     </div>
 
-
+    <!-- JavaScript to Load Header -->
+    <script>
+        // Fetch and insert header dynamically
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading header:', error));
+    </script>
     <script type="module" src ="script.js"></script>
 </body>
 
