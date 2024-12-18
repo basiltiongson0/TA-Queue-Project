@@ -44,7 +44,7 @@
             object-fit: cover; /* aspect ratio */
         }
 
-        /* Text Label */
+        /* text label */
         .header-text {
             font-size: 18px;
             font-weight: bold;
@@ -52,6 +52,32 @@
             white-space: nowrap;
             margin-left: auto; /* pushes to right */
         }
+
+        /* search bar */
+        /* .search-bar {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .search-input {
+            width: 100%;
+            max-width: 300px;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        } */
+
+        #results {
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            max-height: 200px;
+            overflow-y: auto;
+            background-color: #f9f9f9;
+        }
+
 
         /* button container */
         .button-container {
@@ -103,23 +129,30 @@
 </head>
 <body>
 
-    <!-- Header Section -->
+    <!-- header section -->
     <div class="header">
-        <!-- Logo -->
+        <!-- logo -->
         <div class="logo">
             <img src="https://logovectorseek.com/wp-content/uploads/2020/07/university-of-illinois-at-chicago-uic-logo-vector.png" alt="UIC Logo" class="logo-image">
         </div>        
             
-        <!-- Text -->
+        <!-- text -->
         <div class="header-text">CS TA Queue</div>
 
-        <!-- Buttons (Anchored Right) -->
+        <!-- search bar -->
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search..." onkeyup="searchAPI(event)" />
+        </div>
+        
+
+        <!-- buttons (anchored right) -->
         <div class="button-container">
             <a href="dropdown.html" class="header-button">Courses</a>
             <a href="#" class="header-button">Whatever</a>
         </div>
     </div>
 
-
+    <!-- javascript to handle search -->
+    
 </body>
 </html>

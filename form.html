@@ -140,12 +140,11 @@
     <!-- to store password to access specific collection -->
     <span id="class"></span>
     <script>
-        // Retrieve the password from localStorage
+        // get the password from local storage
         var storedPassword = localStorage.getItem("userPassword");
 
-
         if (storedPassword) {
-            // Display the password on the second page (just as an example)
+            // display password
             document.getElementById("class").textContent = storedPassword;
         } else {
             document.getElementById("class").textContent = "Sorry, couldn't find this password :(";
@@ -157,10 +156,10 @@
         <input type="text" id="name" placeholder="Name">
         <select id="mySelect" placeholder="Question Type">
             <option value="" disabled selected>Question Type</option>
-            <option value="project">Project</option>
-            <option value="homework">Homework</option>
-            <option value="lab">Lab</option>
-            <option value="other">Other</option>
+            <option value="Project">Project</option>
+            <option value="Homework">Homework</option>
+            <option value="Lab">Lab</option>
+            <option value="Other">Other</option>
         </select>
         <button id="name-button">Add to Queue</button>
     </div>
@@ -182,9 +181,9 @@
         <a href="dropdown.html">Back to Classes</a>
     </div>
 
-    <!-- JavaScript to Load Header -->
+    <!-- javascript to load header -->
     <script>
-        // Fetch and insert header dynamically
+        // fetch and insert header dynamically
         fetch('header.html')
             .then(response => response.text())
             .then(data => {
