@@ -208,6 +208,36 @@
             .catch(error => console.error('Uh oh... header error:', error));
     </script>
 
+    <script>
+        // function to enable/disable the button
+        function validateInputs() {
+            const nameInput = document.getElementById("name");
+            const questionSelect = document.getElementById("mySelect");
+            const addButton = document.getElementById("name-button");
+
+            // enable the button only if both fields are valid
+            if (nameInput.value.trim() !== "" && questionSelect.value !== "") {
+                addButton.disabled = false;
+            } else {
+                addButton.disabled = true;
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const nameInput = document.getElementById("name");
+            const questionSelect = document.getElementById("mySelect");
+            const addButton = document.getElementById("name-button");
+
+            // initially disable the button
+            addButton.disabled = true;
+
+            // add event listeners to validate inputs on change
+            nameInput.addEventListener("input", validateInputs);
+            questionSelect.addEventListener("change", validateInputs);
+        });
+    </script>
+
+
     <script type="module" src="script.js"></script>
 </body>
 
