@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>TA Hours Queue</title> <!-- this is the tab name -->
+    <script src="https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
+
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0; 
+            padding: 100px; /* padding so TA access button doesn't overlap heading */
+            background-color: #f8f9fa; 
+            background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.159)), 
+            url('https://images.vexels.com/media/users/3/129772/isolated/svg/a61ef74b6ebc153b4e713a9ec91f8fe0.svg');
+            background-size: 1300px 1300px;
+            background-position: center -10px;
+            background-repeat: no-repeat;
+            background-attachment: fixed; /* Keeps the image static during scroll */
+            color: #333; 
+            text-align: center; 
+            max-height: 100vh; 
+        }
+
+        h1 {
+            margin: 20px 0; 
+            color: rgb(8, 29, 115); 
+        }
+
+        /* small TA button styling */
+        .toggle-button {
+            position: fixed;
+            top: 100px; /* keeps button under header */ 
+            left: 10px;
+            padding: 5px 10px;
+            font-size: 12px;
+            color: white;
+            background-color: #33333377;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            z-index: 100;
+        }
+
+        .toggle-button:hover {
+            background-color: #555;
+        }
+
+        /* input and buttons here */ 
+        input {
+            padding: 5px; 
+            margin: 0px;
+            border: 1px solid #ccc; 
+            border-radius: 4px; 
+            font-size: 15px; 
+            width: 200px; 
+        }
+
+        button {
+            padding: 10px 15px; 
+            font-size: 16px; 
+            color: white; 
+            background-color: rgb(8, 29, 115); 
+            border: none;
+            border-radius: 5px; 
+            cursor: pointer; 
+            margin: 10px; 
+            z-index: 2; 
+        }
+
+        button:hover {
+            background-color: white; 
+            color: grey; 
+        }
+
+        /* TA Access button styling */
+        .ta-access {
+            display: none; /* Initially hidden */
+            margin: 20px 0;
+        }
+
+        .ta-input {
+            padding: 5px;
+            font-size: 14px;
+            width: 150px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        .ta-button {
+            padding: 6px 12px;
+            font-size: 14px; 
+            color: white;
+            background-color: rgba(128, 128, 128, 0.704); 
+            border: none;
+            border-radius: 3px; 
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .ta-button:hover {
+            background-color: #ccc;
+            color: black; 
+        }
+
+        /* Dropdown Styling */
+        .dropdown {
+            margin: 20px auto;
+            display: inline-block;
+            position: relative;
+        }
+
+        .dropdown-button {
+            padding: 10px 20px;
+            font-size: 18px;
+            color: white;
+            background-color: rgb(8, 29, 115);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            border: 1px solid rgb(8, 29, 115);
+        }
+
+        .dropdown-button:hover {
+            border: 1px solid rgb(8, 29, 115);
+            background-color: white; 
+            /* background-color: rgb(88, 113, 214); lighter blue */
+            color: rgb(8, 29, 115);; 
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            z-index: 1;
+            min-width: 200px;
+            max-height: 300px; 
+            overflow-y: auto; /* vertical scroll */
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 10px;
+            color: #333;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div id="header"></div>
+    <!-- little button that reveals TA login -->
+    <button class="toggle-button" onclick="toggleTAAccess()">TA Access</button>
+
+    <!-- TA access input and button (hidden by default) -->
+    <div id="ta-access" style="display: none;">
+        <input type="text" id="ta-input" placeholder="Enter TA key">
+        <button onclick="checkInput()">TA Access</button>
+    </div>
+
+    <h1>Computer Science Class List</h1>
+
+    <!-- 100 Level Courses -->
+    <div class="dropdown">
+        <button class="dropdown-button">100 Level Courses</button>
+        <div class="dropdown-content">
+            <a href="student-form.html?password=queues">100 ~ Discovering CS</a>
+            <a href="student-form.html?password=queue2">107 ~ Intro to Computing</a>
+            <a href="student-form.html?password=queue2">109 ~ Programming with MatLab</a>
+            <a href="student-form.html?password=queue2">111 ~ Program Design I</a>
+            <a href="student-form.html?password=queue2">112 ~ Program Design I Bio Problems</a>
+            <a href="student-form.html?password=queue2">113 ~ Program Design I Law and Policy</a>
+            <a href="student-form.html?password=queue2">141 ~ Program Design II</a>
+            <a href="student-form.html?password=queue2">151 ~ Mathematical Foundations of CS</a>
+        </div>
+    </div>
+
+    <!-- 200 Level Courses -->
+    <div class="dropdown">
+        <button class="dropdown-button">200 Level Courses</button>
+        <div class="dropdown-content">
+            <a href="cs211.html">211 ~ Programming Practicum</a>
+            <a href="cs251.html">251 ~ Data Structures</a>
+            <a href="cs261.html">261 ~ Machine Organization</a>
+            <a href="cs261.html">277 ~ Professional Communications</a>
+        </div>
+    </div>
+
+    <!-- 300 Level Courses -->
+    <div class="dropdown">
+        <button class="dropdown-button">300 Level Courses</button>
+        <div class="dropdown-content">
+            <a href="cs301.html">301 ~ Languages and Automata</a>
+            <a href="cs341.html">341 ~ Language Design</a>
+            <a href="cs342.html">342 ~ Software Design</a>
+            <a href="student-form.html?password=queue2">351 ~ Data Structure Practicum</a>
+            <a href="student-form.html?password=queue2">361 ~ Systems Programming</a>
+            <a href="student-form.html?password=queue2">362 ~ Computer Design</a>
+            <a href="student-form.html?password=queue2">377 ~ Ethical Issues in Computing</a>
+            <a href="student-form.html?password=queue2">378 ~ Framework-based Development for Handheld Devices</a>
+            <a href="student-form.html?password=queue2">391 ~ Computer Science Practicum</a>
+        </div>
+    </div>
+
+    <!-- 400 Level Courses -->
+    <div class="dropdown">
+        <button class="dropdown-button">400 Level Courses</button>
+        <div class="dropdown-content">
+            <a href="student-form.html?password=queue2">401 ~ Computer Algorithms I</a>
+            <a href="student-form.html?password=queue2">402 ~ Algorithms in Practice</a>
+            <a href="student-form.html?password=queue2">407 ~ Economics and Computation</a>
+            <a href="student-form.html?password=queue2">411 ~ Artificial Intelligence</a>
+            <a href="student-form.html?password=queue2">412 ~ Intro to Machine Learning</a>
+            <a href="student-form.html?password=queue2">415 ~ Computer Vision I</a>
+            <a href="student-form.html?password=queue2">418 ~ Intro to Data Science</a>
+            <a href="student-form.html?password=queue2">421 ~ Natural Language Processing</a>
+            <a href="student-form.html?password=queue2">422 ~ UI Design and Programming</a>
+            <a href="student-form.html?password=queue2">423 ~ Natural User Interactions</a>
+            <a href="student-form.html?password=queue2">424 ~ Visualization and Visual Analytics</a>
+            <a href="student-form.html?password=queue2">425 ~ Computer Graphics</a>
+            <a href="student-form.html?password=queue2">426 ~ Video Game Design and Development</a>
+            <a href="student-form.html?password=queue2">427 ~ Creative Coding</a>
+        </div>
+    </div>
+
+    <!-- JavaScript for TA Access Toggle and Input Check -->
+    <script>
+        // Toggle visibility of TA Access section
+        function toggleTAAccess() {
+            const taAccess = document.getElementById('ta-access');
+            taAccess.style.display = (taAccess.style.display === 'none' || taAccess.style.display === '') ? 'block' : 'none';
+        }
+
+        // Check TA key input
+        function checkInput() {
+            var correctKey = "queues";
+            var correctKey2 = "queue2";
+            var input = document.getElementById('ta-input').value;
+
+            if (input === correctKey || input === correctKey2) {
+                localStorage.setItem("userPassword", input);
+                window.location.href = "form.html";
+            } else {
+                alert("Sorry! Not a valid TA key. Please try again...");
+            }
+        }
+    </script>
+    <!-- JavaScript to Load Header -->
+    <script>
+        fetch('header.html')  
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header').innerHTML = data;
+
+                const inputElement = document.getElementById('searchInput');
+                if (inputElement) {
+                    inputElement.addEventListener('keydown', function(event) {
+                        if (event.key === 'Enter') {
+                            var inputValue = inputElement.value;
+                            if (inputValue) {
+                                var encodedVal = encodeURIComponent(inputValue);
+                                //console.log("Generated URL:", "search.html?input=" + encodeURIComponent(inputValue));
+                                window.location.href = "search.html?input=" + encodedVal;
+                            }
+                        }
+                    });
+                }
+            })
+            .catch(error => console.error('Uh oh... header error:', error));
+    </script>
+
+</body>
+
+
+</html>
+
+<!-- just one -->

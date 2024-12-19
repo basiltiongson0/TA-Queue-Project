@@ -1,0 +1,97 @@
+<!-- idk how to do this -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search List</title>
+    <style></style>
+    <script>
+        window.onload = function(){
+            const parameters = new URLSearchParams(window.location.search);
+            const searchData = parameters.get('input');
+            if (searchData){
+                document.getElementById('results').innerText = decodeURIComponent(searchData);      
+            }
+       
+            const links = [
+                {name: '100 ~ Discovering CS', url: 'student-form.html?password=queues'},
+                {name: '107 ~ Intro to Computing', url: 'student-form.html?password=queue2'},
+                {name: '109 ~ Programming with MatLab', url: 'student-form.html?password=queues'},
+                {name: '111 ~ Program Design I', url: 'student-form.html?password=queues'},
+                {name: '301 ~ Languages and Automata', url: 'student-form.html?password=queues'},
+                {name: '341 ~ Language Design', url: 'student-form.html?password=queues'},
+                {name: '342 ~ Software Design', url: 'student-form.html?password=queues'},
+                {name: '351 ~ Data Structure Practicum', url: 'student-form.html?password=queues'},
+                {name: '361 ~ Systems Programming', url: 'student-form.html?password=queues'},
+                {name: '362 ~ Computer Design', url: 'student-form.html?password=queues'},
+                {name: '377 ~ Ethical Issues in Computing', url: 'student-form.html?password=queues'},
+                {name: '378 ~ Framework-based Development for Handheld Devices', url: 'student-form.html?password=queues'},
+                {name: '391 ~ Computer Science Practicum', url: 'student-form.html?password=queues'},
+            ];
+
+            const filteredLinks = links.filter(link =>
+                link.name.toLowerCase().includes(searchData.toLowerCase())
+            );
+
+            // generate the html for the filtered links
+            const linksContainer = document.getElementById('links-container');
+            if (filteredLinks.length > 0) {
+                filteredLinks.forEach(link => {
+                    const linkElement = document.createElement('a');
+                    linkElement.href = link.url;7
+                    linkElement.textContent = link.name;
+                    linkElement.classList.add('search-link');
+                    linksContainer.appendChild(linkElement);
+                    linksContainer.appendChild(document.createElement('br'));  // For line breaks
+                });
+            } else {
+                linksContainer.innerHTML = '<p>No results found.</p>';
+            }
+
+        };
+
+    </script>
+</head>
+
+<body>
+    <div id="header"></div>
+
+    <h1>Search Results</h1>
+
+    <p id="results"></p>
+    <div id="links-container">
+
+    </div>
+
+    <div class = "links">
+        <a href="dropdown.html">Links to Classes</a>
+    </div>
+
+    <!-- javascript to load header -->
+    <script>
+        fetch('header.html')  
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header').innerHTML = data;
+
+                const inputElement = document.getElementById('searchInput');
+                if (inputElement) {
+                    inputElement.addEventListener('keydown', function(event) {
+                        if (event.key === 'Enter') {
+                            var inputValue = inputElement.value;
+                            if (inputValue) {
+                                var encodedVal = encodeURIComponent(inputValue);
+                                //console.log("Generated URL:", "search.html?input=" + encodeURIComponent(inputValue));
+                                window.location.href = "search.html?input=" + encodedVal;
+                            }
+                        }
+                    });
+                }
+            })
+            .catch(error => console.error('Uh oh... header error:', error));
+    </script>
+</body>
+
+</html>
