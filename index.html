@@ -14,6 +14,14 @@
             padding: 20px;
             background-color: #f8f9fa;
             text-align: center;
+            background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.861)), 
+            url('https://images.vexels.com/media/users/3/129772/isolated/svg/a61ef74b6ebc153b4e713a9ec91f8fe0.svg');
+            background-size: 1300px 1300px;
+            background-position: center -10px;
+            background-repeat: no-repeat;
+            background-attachment: fixed; /* Keeps the image static during scroll */
+            color: #333; 
+            max-height: 100vh; 
         }
 
         h1 {
@@ -28,17 +36,18 @@
         }
 
         .collapsible {
+            display: block; 
             background-color: rgb(8, 29, 115);
             color: white;
             cursor: pointer;
             padding: 10px;
             width: 100%;
-            border: none;
+            border: 1px solid rgb(8, 29, 115);
             text-align: left;
             outline: none;
             font-size: 18px;
-            margin: 20px auto;
-            max-width: 400px;
+            margin: 15px auto 5px; /* distance from h2 */ 
+            max-width: 430px;
             border-radius: 5px;
         }
 
@@ -51,11 +60,12 @@
         .content {
             padding: 0 15px;
             display: none;
-            overflow: hidden;
-            background-color: #ccc;
+            overflow-y: auto; /* allows for scroll vertically */ 
+            background-color: rgba(8, 29, 115, 0.693);;
             width: 100%;
             max-width: 400px;
-            margin: 0 auto 20px auto;
+            max-height: 300px; 
+            margin: 0 auto;
             border-radius: 5px;
         }
 
@@ -76,7 +86,7 @@
         }
 
         li:hover {
-            color: rgb(73, 73, 73); /* Hover text color */
+            color: rgb(173, 173, 173); /* Hover text color */
         }
 
         li:last-child {
@@ -87,8 +97,8 @@
         .icon {
             position: absolute;
             left: 10px; /* Adjust the distance from the left */
-            width: 35px;
-            height: 35px;
+            width: 25px;
+            height: 25px;
         }
 
         a {
@@ -109,37 +119,198 @@
     <h1>University of Illinois Chicago</h1>
     <h2>Areas of Study</h2>
 
+    <!-- college of engineering majors listed here -->
     <button class="collapsible">College of Engineering</button>
     <div class="content">
         <ul>
-            <li><img class="icon" src="https://cdn-icons-png.flaticon.com/512/5578/5578601.png" alt="Coming Soon Icon"><a href="biomedical-engineering.html">Biomedical Engineering</a></li>
-            <li><img class="icon" src="https://cdn-icons-png.flaticon.com/512/5578/5578601.png" alt="Coming Soon Icon"><a href="chemical-engineering.html">Chemical Engineering</a></li>
-            <li><img class="icon" src="https://cdn-icons-png.flaticon.com/512/5578/5578601.png" alt="Coming Soon Icon"><a href="civil-engineering.html">Civil Engineering</a></li>
-            <li><img class="icon" src="https://cdn-icons-png.flaticon.com/512/5578/5578601.png" alt="Coming Soon Icon"><a href="computer-engineering.html">Computer Engineering</a></li>
-            <li><a href="dropdown.html">Computer Science</a></li>
-            <li><img class="icon" src="https://cdn-icons-png.flaticon.com/512/5578/5578601.png" alt="Coming Soon Icon"><a href="computer-science-design.html">Computer Science + Design</a></li>
-            <li><img class="icon" src="https://cdn-icons-png.flaticon.com/512/5578/5578601.png" alt="Coming Soon Icon"><a href="data-science.html">Data Science</a></li>
-            <li><img class="icon" src="https://cdn-icons-png.flaticon.com/512/5578/5578601.png" alt="Coming Soon Icon"><a href="electrical-engineering.html">Electrical Engineering</a></li>
-            <li><img class="icon" src="https://cdn-icons-png.flaticon.com/512/5578/5578601.png" alt="Coming Soon Icon"><a href="engineering-management.html">Engineering Management</a></li>
-            <li><img class="icon" src="https://cdn-icons-png.flaticon.com/512/5578/5578601.png" alt="Coming Soon Icon"><a href="engineering-physics.html">Engineering Physics</a></li>
-            <li><img class="icon" src="https://cdn-icons-png.flaticon.com/512/5578/5578601.png" alt="Coming Soon Icon"><a href="environmental-engineering.html">Environmental Engineering</a></li>
-            <li><img class="icon" src="https://cdn-icons-png.flaticon.com/512/5578/5578601.png" alt="Coming Soon Icon"><a href="industrial-engineering.html">Industrial Engineering</a></li>
-            <li><img class="icon" src="https://cdn-icons-png.flaticon.com/512/5578/5578601.png" alt="Coming Soon Icon"><a href="mechanical-engineering.html">Mechanical Engineering</a></li>
+            <li title="Work in progress...">
+                <img class="icon" src="https://img.icons8.com/?size=100&id=108535&format=png&color=FFFFFF" alt="Coming Soon Icon">
+                <a>Biomedical Engineering</a>
+            </li> 
+            <li title="Work in progress...">
+                <img class="icon" src="https://img.icons8.com/?size=100&id=108535&format=png&color=FFFFFF" alt="Coming Soon Icon">
+                <a>Chemical Engineering</a>
+            </li>
+            <li title="Work in progress...">
+                <img class="icon" src="https://img.icons8.com/?size=100&id=108535&format=png&color=FFFFFF" alt="Coming Soon Icon">
+                <a>Civil Engineering</a>
+            </li>
+            <li title="Work in progress...">
+                <img class="icon" src="https://img.icons8.com/?size=100&id=108535&format=png&color=FFFFFF" alt="Coming Soon Icon">
+                <a>Computer Engineering</a>
+            </li>
+            <li>
+                <a href="dropdown.html">Computer Science</a>
+            </li>
+            <li title="Work in progress...">
+                <img class="icon" src="https://img.icons8.com/?size=100&id=108535&format=png&color=FFFFFF" alt="Coming Soon Icon">
+                <a>Computer Science + Design</a>
+            </li>
+            <li title="Work in progress...">
+                <img class="icon" src="https://img.icons8.com/?size=100&id=108535&format=png&color=FFFFFF" alt="Coming Soon Icon">
+                <a>Data Science</a>
+            </li>
+            <li title="Work in progress...">
+                <img class="icon" src="https://img.icons8.com/?size=100&id=108535&format=png&color=FFFFFF" alt="Coming Soon Icon">
+                <a>Electrical Engineering</a>
+            </li>
+            <li title="Work in progress...">
+                <img class="icon" src="https://img.icons8.com/?size=100&id=108535&format=png&color=FFFFFF" alt="Coming Soon Icon">
+                <a>Engineering Management</a>
+            </li>
+            <li title="Work in progress...">
+                <img class="icon" src="https://img.icons8.com/?size=100&id=108535&format=png&color=FFFFFF" alt="Coming Soon Icon">
+                <a>Engineering Physics</a>
+            </li>
+            <li title="Work in progress...">
+                <img class="icon" src="https://img.icons8.com/?size=100&id=108535&format=png&color=FFFFFF" alt="Coming Soon Icon">
+                <a>Environmental Engineering</a>
+            </li>
+            <li title="Work in progress...">
+                <img class="icon" src="https://img.icons8.com/?size=100&id=108535&format=png&color=FFFFFF" alt="Coming Soon Icon">
+                <a>Industrial Engineering</a>
+            </li>
+            <li title="Work in progress...">
+                <img class="icon" src="https://img.icons8.com/?size=100&id=108535&format=png&color=FFFFFF" alt="Coming Soon Icon">
+                <a>Mechanical Engineering</a>
+            </li>
         </ul>
     </div>
 
-    <script>
-        const collapsible = document.querySelector(".collapsible");
-        const content = document.querySelector(".content");
+    <!-- other colleges - just used liberal arts and sciences to show how layout would change-->
+    <button class="collapsible">College of Liberal Arts and Sciences</button>
+    <div class="content">
+        <ul>
+            <li title="Work in progress...">
+                <img class="icon" src="https://img.icons8.com/?size=100&id=108535&format=png&color=FFFFFF" alt="Coming Soon Icon">
+                <a>Anthropology</a>
+            </li> 
+            <li title="Work in progress...">
+                <img class="icon" src="https://img.icons8.com/?size=100&id=108535&format=png&color=FFFFFF" alt="Coming Soon Icon">
+                <a>Biochemistry</a>
+            </li>
+            <li title="Work in progress...">
+                <img class="icon" src="https://img.icons8.com/?size=100&id=108535&format=png&color=FFFFFF" alt="Coming Soon Icon">
+                <a>Biological Sciences</a>
+            </li>
+            <li title="Work in progress...">
+                <img class="icon" src="https://img.icons8.com/?size=100&id=108535&format=png&color=FFFFFF" alt="Coming Soon Icon">
+                <a>Black Studies</a>
+            </li>
+            <li title="Work in progress...">
+                <img class="icon" src="https://img.icons8.com/?size=100&id=108535&format=png&color=FFFFFF" alt="Coming Soon Icon">
+                <a>Chemistry</a>
+            </li>
+            <li title="Work in progress...">
+                <img class="icon" src="https://img.icons8.com/?size=100&id=108535&format=png&color=FFFFFF" alt="Coming Soon Icon">
+                <a>Classical Studies</a>
+            </li>
+            <li title="Work in progress...">
+                <img class="icon" src="https://img.icons8.com/?size=100&id=108535&format=png&color=FFFFFF" alt="Coming Soon Icon">
+                <a>Communication</a>
+            </li>
+            <li title="Work in progress...">
+                <img class="icon" src="https://img.icons8.com/?size=100&id=108535&format=png&color=FFFFFF" alt="Coming Soon Icon">
+                <a>Computer Science and Linguistics</a>
+            </li>
+            <li title="Work in progress...">
+                <img class="icon" src="https://img.icons8.com/?size=100&id=108535&format=png&color=FFFFFF" alt="Coming Soon Icon">
+                <a>Criminology, Law, and Justice</a>
+            </li>
+            <li title="Work in progress...">
+                <img class="icon" src="https://img.icons8.com/?size=100&id=108535&format=png&color=FFFFFF" alt="Coming Soon Icon">
+                <a>Earth and Environmental Sciences</a>
+            </li>
+            <li title="Work in progress...">
+                <img class="icon" src="https://img.icons8.com/?size=100&id=108535&format=png&color=FFFFFF" alt="Coming Soon Icon">
+                <a>Economics</a>
+            </li>
+            <li title="Work in progress...">
+                <img class="icon" src="https://img.icons8.com/?size=100&id=108535&format=png&color=FFFFFF" alt="Coming Soon Icon">
+                <a>English</a>
+            </li>
+        </ul>
+    </div>
 
+    <!-- just another layout check - filled with same info as liberal arts and sciences -->
+    <button class="collapsible">College of Education</button>
+    <div class="content">
+        <ul>
+            <li title="Work in progress...">
+                <img class="icon" src="https://img.icons8.com/?size=100&id=108535&format=png&color=FFFFFF" alt="Coming Soon Icon">
+                <a>Anthropology</a>
+            </li> 
+            <li title="Work in progress...">
+                <img class="icon" src="https://img.icons8.com/?size=100&id=108535&format=png&color=FFFFFF" alt="Coming Soon Icon">
+                <a>Biochemistry</a>
+            </li>
+            <li title="Work in progress...">
+                <img class="icon" src="https://img.icons8.com/?size=100&id=108535&format=png&color=FFFFFF" alt="Coming Soon Icon">
+                <a>Biological Sciences</a>
+            </li>
+            <li title="Work in progress...">
+                <img class="icon" src="https://img.icons8.com/?size=100&id=108535&format=png&color=FFFFFF" alt="Coming Soon Icon">
+                <a>Black Studies</a>
+            </li>
+            <li title="Work in progress...">
+                <img class="icon" src="https://img.icons8.com/?size=100&id=108535&format=png&color=FFFFFF" alt="Coming Soon Icon">
+                <a>Chemistry</a>
+            </li>
+            <li title="Work in progress...">
+                <img class="icon" src="https://img.icons8.com/?size=100&id=108535&format=png&color=FFFFFF" alt="Coming Soon Icon">
+                <a>Classical Studies</a>
+            </li>
+            <li title="Work in progress...">
+                <img class="icon" src="https://img.icons8.com/?size=100&id=108535&format=png&color=FFFFFF" alt="Coming Soon Icon">
+                <a>Communication</a>
+            </li>
+            <li title="Work in progress...">
+                <img class="icon" src="https://img.icons8.com/?size=100&id=108535&format=png&color=FFFFFF" alt="Coming Soon Icon">
+                <a>Computer Science and Linguistics</a>
+            </li>
+            <li title="Work in progress...">
+                <img class="icon" src="https://img.icons8.com/?size=100&id=108535&format=png&color=FFFFFF" alt="Coming Soon Icon">
+                <a>Criminology, Law, and Justice</a>
+            </li>
+            <li title="Work in progress...">
+                <img class="icon" src="https://img.icons8.com/?size=100&id=108535&format=png&color=FFFFFF" alt="Coming Soon Icon">
+                <a>Earth and Environmental Sciences</a>
+            </li>
+            <li title="Work in progress...">
+                <img class="icon" src="https://img.icons8.com/?size=100&id=108535&format=png&color=FFFFFF" alt="Coming Soon Icon">
+                <a>Economics</a>
+            </li>
+            <li title="Work in progress...">
+                <img class="icon" src="https://img.icons8.com/?size=100&id=108535&format=png&color=FFFFFF" alt="Coming Soon Icon">
+                <a>English</a>
+            </li>
+        </ul>
+    </div>
+
+    <!--javascript for the collapsibles ~ allows for just one at a time open-->
+    <script>
+    const collapsibles = document.querySelectorAll(".collapsible");
+
+    collapsibles.forEach((collapsible) => {
         collapsible.addEventListener("click", function () {
+            // close all other open collapsibles
+            collapsibles.forEach((otherCollapsible) => {
+                if (otherCollapsible !== this && otherCollapsible.classList.contains("active")) {
+                    otherCollapsible.classList.remove("active");
+                    otherCollapsible.nextElementSibling.style.display = "none";
+                }
+            });
+
+            // toggle the clicked collapsible
             this.classList.toggle("active");
+            const content = this.nextElementSibling;
             if (content.style.display === "block") {
                 content.style.display = "none";
             } else {
                 content.style.display = "block";
             }
         });
+    });
     </script>
 
     <!-- javascript to load header -->
