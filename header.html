@@ -18,14 +18,14 @@
             position: relative;
             display: flex;
             align-items: center;
-            justify-content: space-between; /* stuff is spread across header */ 
+            justify-content: space-between; /* Spread items across header */ 
             background-color: white;
             padding: 10px;
             border-bottom: 2px solid #ddd; 
             gap: 15px; 
         }
 
-        /* Logo */
+        /* logo */
         .logo {
             width: 300px;
             height: 70px;
@@ -50,39 +50,49 @@
             font-weight: bold;
             color: rgb(8, 29, 115);
             white-space: nowrap;
-            margin-left: auto; /* pushes to right */
+            margin-left: auto; /* pushes right */
         }
 
-        /* search bar */
-        /* .search-bar {
-            flex-grow: 1;
+        /* search bar container */
+        .search-container {
+            position: relative;
             display: flex;
-            justify-content: center;
+            align-items: center;
+        }
+
+        /* change the size etc of search magnifying glass */ 
+        .search-icon {
+            width: 20px; 
+            height: 20px; 
+            cursor: pointer;
+            margin-right: 10px;
         }
 
         .search-input {
-            width: 100%;
-            max-width: 300px;
+            display: none; /* hidden to start */
+            width: 200px;
             padding: 8px 12px;
             border: 1px solid #ddd;
             border-radius: 4px;
             font-size: 14px;
-        } */
-
-        #results {
-            margin-top: 10px;
-            border: 1px solid #ccc;
-            padding: 10px;
-            max-height: 200px;
-            overflow-y: auto;
-            background-color: #f9f9f9;
+            background-color: white;
         }
 
+        .search-input.active {
+            display: block; /* show when active (will close when clicked out) */
+        }
+            /* Close button styling */
+    .close-icon {
+        display: none;
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+        margin-left: 10px;
+    }
 
         /* button container */
         .button-container {
             display: flex;
-           /* gap: 5px; Adds spacing between buttons */
         }
 
         /* buttons */
@@ -91,11 +101,7 @@
             padding: 8px 10px;
             font-size: 14px;
             color: #21248e;
-            /* border: 1px solid #ddd; */
-            /* background-color: #f8f9fa; */
             background-color: transparent; 
-            /* border-radius: 15px; */
-            /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */
             cursor: pointer;
             text-decoration: none;
             margin: 0; 
@@ -103,19 +109,19 @@
         }
 
         .header-button:not(:last-child) {
-            margin-right: 5px; /* spacing between buttons */
+            margin-right: 5px; /* spacing between each button */
         }
 
-        /* Underline Effect */
+        /* underline effect */
         .header-button::after {
             content: '';
             position: absolute;
             left: 0;
-            bottom: -3px; /* Adjust the position of underline */
-            width: 0; /* Hidden by default */
+            bottom: -3px; /* adjust pos of underline */
+            width: 0; /* hidden to start */
             height: 3px;
             background-color: #c8102e; /* UIC red */
-            transition: width 0.3s ease; /* Smooth expand */
+            transition: width 0.3s ease; /* smooth expand */
         }
 
         .header-button:hover::after {
@@ -126,6 +132,38 @@
             color: #21248e; /* hover button color */ 
         }
     </style>
+<script>
+    function toggleSearchBar() {
+        const searchInput = document.getElementById('searchInput');
+        const searchIcon = document.getElementById('searchIcon');
+        const closeIcon = document.getElementById('closeIcon');
+
+        const isActive = searchInput.classList.contains('active');
+
+        if (isActive) {
+            // Hide the search bar
+            searchInput.classList.remove('active');
+            searchIcon.style.display = 'inline';
+            closeIcon.style.display = 'none';
+        } else {
+            // Show the search bar
+            searchInput.classList.add('active');
+            searchIcon.style.display = 'none';
+            closeIcon.style.display = 'inline';
+            searchInput.focus();
+        }
+    }
+
+    function hideSearchBar() {
+        const searchInput = document.getElementById('searchInput');
+        const searchIcon = document.getElementById('searchIcon');
+        const closeIcon = document.getElementById('closeIcon');
+
+        searchInput.classList.remove('active');
+        searchIcon.style.display = 'inline';
+        closeIcon.style.display = 'none';
+    }
+</script>
 </head>
 <body>
 
@@ -135,21 +173,22 @@
         <div class="logo">
             <img src="https://logovectorseek.com/wp-content/uploads/2020/07/university-of-illinois-at-chicago-uic-logo-vector.png" alt="UIC Logo" class="logo-image">
         </div>        
-            
+        
         <!-- text -->
         <div class="header-text">CS TA Queue</div>
-
-        <!-- search bar -->
-        <input type="text" id="searchInput" placeholder="Search...">
         
         <!-- buttons (anchored right) -->
         <div class="button-container">
             <a href="dropdown.html" class="header-button">Courses</a>
             <a href="#" class="header-button">Whatever</a>
         </div>
-    </div>
 
-    <!-- javascript to handle search -->
-    
+        <!-- search bar -->
+        <div class="search-container">
+            <img id="searchIcon" class="search-icon" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQDUpnCtDO2QZ3O9cfBCBqXXWu3eu6VJ7IUA&s" alt="Search" onclick="toggleSearchBar()">
+            <input type="text" id="searchInput" class="search-input" placeholder="Search...">
+            <img id="closeIcon" class="close-icon" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnqiLR3xiG_HRhQgCVDyShki-nSf6dbGK9HA&s" alt="Close" onclick="hideSearchBar()">
+        </div>
+    </div>
 </body>
 </html>

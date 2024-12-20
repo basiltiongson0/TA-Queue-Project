@@ -183,26 +183,47 @@
 
     <!-- javascript to load header -->
     <script>
-        fetch('header.html')  
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('header').innerHTML = data;
-   
-                const inputElement = document.getElementById('searchInput');
-                if (inputElement) {
-                    inputElement.addEventListener('keydown', function(event) {
-                        if (event.key === 'Enter') {
-                            var inputValue = inputElement.value;
-                            if (inputValue) {
-                                var encodedVal = encodeURIComponent(inputValue);
-                                //console.log("Generated URL:", "search.html?input=" + encodeURIComponent(inputValue));
-                                window.location.href = "search.html?input=" + encodedVal;
-                            }
-                        }
-                    });
+        fetch('header.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('header').innerHTML = data;
+    
+            const searchInput = document.getElementById('searchInput');
+            const searchIcon = document.getElementById('searchIcon');
+            const closeIcon = document.getElementById('closeIcon');
+    
+            // search bar toggle
+            function toggleSearchBar() {
+                const isActive = searchInput.classList.contains('active');
+    
+                if (isActive) {
+                    searchInput.classList.remove('active');
+                    searchIcon.style.display = 'inline';
+                    closeIcon.style.display = 'none';
+                } else {
+                    searchInput.classList.add('active');
+                    searchIcon.style.display = 'none';
+                    closeIcon.style.display = 'inline';
+                    searchInput.focus();
                 }
-            })
-            .catch(error => console.error('Uh oh... header error:', error));
+            }
+    
+            // event listeners
+            searchIcon.addEventListener('click', toggleSearchBar);
+            closeIcon.addEventListener('click', toggleSearchBar);
+    
+            // redirect on enter
+            searchInput.addEventListener('keydown', function (event) {
+                if (event.key === 'Enter') {
+                    const inputValue = searchInput.value;
+                    if (inputValue) {
+                        const encodedVal = encodeURIComponent(inputValue);
+                        window.location.href = `search.html?input=${encodedVal}`;
+                    }
+                }
+            });
+        })
+        .catch(error => console.error('Header loading error:', error));
     </script>
 
     <script>
