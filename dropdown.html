@@ -84,18 +84,49 @@
             color: grey; 
         }
 
-        /* TA Access button styling */
-        .ta-access {
-            display: none; /* Initially hidden */
-            margin: 20px 0;
+        /* TA access menu thingy styling */
+        #ta-access {
+            display: none; /* starts off hidden */
+            position: fixed; 
+            top: 110px; /* below toggle button */
+            left: 105px; 
+            text-align: center; 
+            background-color: #ffffffc5; /* little bit transparent bc cute */
+            padding: 5px; 
+            border: 1px solid #ccc; 
+            border-radius: 5px; 
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+            height: 60px; 
         }
 
-        .ta-input {
-            padding: 5px;
-            font-size: 14px;
-            width: 150px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
+        /* smaller access button inside password enter container */
+        .small-ta-button {
+            padding: 5px 8px; 
+            font-size: 12px; 
+            color: white;
+            background-color: rgba(128, 128, 128, 0.704); 
+            border: none;
+            border-radius: 3px; 
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+            margin-top: 5px; /* keeps it close to the input box */ 
+        }
+
+        /* smaller access button inside password enter container */ 
+        .small-ta-button:hover {
+            background-color: #ccc;
+            color: black; 
+        }
+
+        /* Input styling */
+        #ta-input {
+            display: block; /* Ensures the input is on its own line */
+            width: 150px; 
+            margin: 0; /* spacing around the input */
+            padding: 5px; /* internal spacing for the input */
+            font-size: 14px; 
+            border: 1px solid #ccc; /* Add border */
+            border-radius: 3px; /* Add rounded corners */
         }
 
         .ta-button {
@@ -179,7 +210,7 @@
     <!-- TA access input and button (hidden by default) -->
     <div id="ta-access" style="display: none;">
         <input type="text" id="ta-input" placeholder="Enter TA key">
-        <button onclick="checkInput()">TA Access</button>
+        <button class="small-ta-button" onclick="checkInput()">TA Access</button>
     </div>
 
     <h1>Computer Science Class List</h1>
