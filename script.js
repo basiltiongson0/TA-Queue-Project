@@ -138,8 +138,6 @@ removeButton.addEventListener('click', function() {
         console.log("Queue is empty. Timer will not start.");
         return;  // Do nothing if the queue is empty
     }
-    
-
 
     // elapsedTimeDisplay.textContent = "0";
     // timerStartTime = Date.now();

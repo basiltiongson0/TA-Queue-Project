@@ -37,80 +37,82 @@
 
        // Fetch data from Firestore and plot the chart
        async function fetchDataAndPlot() {
-           const docSnap = await getDoc(queueDocRef);
+        const docSnap = await getDoc(queueDocRef);
 
-           if (docSnap.exists()) {
-               // Get elapsed time data and the estimate
-               const totalTimeSpent = docSnap.data().totalTimeSpent || [];
-               const estimate = docSnap.data().estimate || 0;
+        if (docSnap.exists()) {
+            // Get elapsed time data and the estimate
+            const totalTimeSpent = docSnap.data().totalTimeSpent || [];
+            const estimate = docSnap.data().estimate || 0;
 
-               // Prepare chart data
-               const labels = totalTimeSpent.map((_, index) => `Student ${index + 1}`);
-               const data = totalTimeSpent;
+            // Convert data to minutes
+            const totalTimeSpentInMinutes = totalTimeSpent.map(seconds => (seconds / 60).toFixed(2));
+            const estimateInMinutes = (estimate / 60).toFixed(2);
 
-               // Create Chart.js chart
-               const ctx = document.getElementById('time-spent-chart').getContext('2d');
-               const config = {
-                   type: 'bar',
-                   data: {
-                       labels: labels,
-                       datasets: [{
-                           label: 'Time Spent (seconds)',
-                           data: data,
-                           backgroundColor: 'rgba(8, 29, 115, 0.300)',
-                           borderColor: 'rgba(8, 29, 115, 0.693)',
-                           borderWidth: 1
-                       }]
-                   },
-                   options: {
-                       responsive: true,
-                       plugins: {
-                           legend: { position: 'top' },
-                           title: { display: true, text: 'Time Spent Per Student' },
-                           annotation: {
-                               annotations: {
-                                   estimateLine: {
-                                       type: 'line',
-                                       yMin: estimate,
-                                       yMax: estimate,
-                                       borderColor: 'red',
-                                       borderWidth: 2,
-                                       label: {
-                                           display: true,
-                                           content: `Estimated Time (${estimate} seconds)`,
-                                           position: 'end',
-                                           backgroundColor: 'rgba(255, 99, 132, 0.8)',
-                                           color: '#fff',
-                                           font: { weight: 'bold' }
-                                       }
-                                   }
-                               }
-                           }
-                       },
-                       scales: {
-                           y: {
-                               beginAtZero: true,
-                               title: {
-                                   display: true,
-                                   text: 'Time (seconds)'
-                               }
-                           },
-                           x: {
-                               title: {
-                                   display: true,
-                                   text: 'Students'
-                               }
-                           }
-                       }
-                   }
-               };
+            // Prepare chart data
+            const labels = totalTimeSpent.map((_, index) => `Student ${index + 1}`);
+            const data = totalTimeSpentInMinutes;
 
-               new Chart(ctx, config);
-           } else {
-               console.log("No data found for queue2/TAestimate.");
-           }
-       }
-
+            // Create Chart.js chart
+            const ctx = document.getElementById('time-spent-chart').getContext('2d');
+            const config = {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Time Spent (minutes)',
+                        data: data,
+                        backgroundColor: 'rgba(8, 29, 115, 0.300)',
+                        borderColor: 'rgba(8, 29, 115, 0.693)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { position: 'top' },
+                        title: { display: true, text: 'Time Spent Per Student' },
+                        annotation: {
+                            annotations: {
+                                estimateLine: {
+                                    type: 'line',
+                                    yMin: estimateInMinutes,
+                                    yMax: estimateInMinutes,
+                                    borderColor: 'red',
+                                    borderWidth: 2,
+                                    label: {
+                                        display: true,
+                                        content: `Estimated Time (${estimateInMinutes} minutes)`,
+                                        position: 'end',
+                                        backgroundColor: 'rgba(255, 99, 132, 0.8)',
+                                        color: '#fff',
+                                        font: { weight: 'bold' }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Time (minutes)'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Students'
+                            }
+                        }
+                    }
+                }
+            };
+            new Chart(ctx, config);
+        } else {
+            console.log("No data found for queue2/TAestimate.");
+        }
+    }
        // Fetch data and plot the chart
        fetchDataAndPlot();
    </script>
