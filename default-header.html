@@ -1,0 +1,200 @@
+<!-- same as the CS header but without the links that lead directly to CS specific pages -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS TA Queue Header</title>
+    <style>
+        /* general reset */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: "Helvetica", "Arial", sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        /* header container */
+        .header {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* Spread items across header */ 
+            background-color: white;
+            padding: 10px;
+            border-bottom: 2px solid #ddd; 
+            gap: 15px; 
+        }
+
+        /* logo */
+        .logo {
+            width: 300px;
+            height: 70px;
+            overflow: hidden; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            background-color: transparent;
+            z-index: 2; 
+        }
+
+        .logo-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* aspect ratio */
+        }
+
+        /* text label */
+        .header-text {
+            font-size: 18px;
+            font-weight: bold;
+            color: rgb(8, 29, 115);
+            white-space: nowrap;
+            margin-left: auto; /* pushes right */
+            margin-top: -1px; /* to line it up with the buttons - didn't look right before */
+        }
+
+        /* search bar container */
+        .search-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        /* change the size etc of search magnifying glass */ 
+        .search-icon {
+            width: 20px; 
+            height: 20px; 
+            cursor: pointer;
+            margin-right: 15px;
+        }
+
+        .search-input {
+            display: none; /* hidden to start */
+            width: 200px;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            background-color: white;
+        }
+
+        .search-input.active {
+            display: block; /* show when active (will close when clicked out) */
+        }
+        
+        /* close button */
+        .close-icon {
+            display: none;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        /* button container */
+        .button-container {
+            display: flex;
+        }
+
+        /* buttons */
+        .header-button {
+            position: relative; 
+            padding: 8px 10px;
+            font-size: 15px;
+            color: #21248e;
+            background-color: transparent; 
+            cursor: pointer;
+            text-decoration: none;
+            margin: 0; 
+            line-height: 1; 
+        }
+
+        .header-button:not(:last-child) {
+            margin-right: 5px; /* spacing between each button */
+        }
+
+        /* underline effect */
+        .header-button::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -3px; /* adjust pos of underline */
+            width: 0; /* hidden to start */
+            height: 3px;
+            background-color: #c8102e; /* UIC red */
+            transition: width 0.3s ease; /* smooth expand */
+        }
+
+        .header-button:hover::after {
+            width: 100%; /* expands fully on hover */
+        }
+
+        .header-button:hover {
+            text-decoration: none; /* no default underline on hover */
+            color: #21248e; /* hover button color */ 
+        }
+    </style>
+<script>
+    function toggleSearchBar() {
+        const searchInput = document.getElementById('searchInput');
+        const searchIcon = document.getElementById('searchIcon');
+        const closeIcon = document.getElementById('closeIcon');
+
+        const isActive = searchInput.classList.contains('active');
+
+        if (isActive) {
+            // Hide the search bar
+            searchInput.classList.remove('active');
+            searchIcon.style.display = 'inline';
+            closeIcon.style.display = 'none';
+        } else {
+            // Show the search bar
+            searchInput.classList.add('active');
+            searchIcon.style.display = 'none';
+            closeIcon.style.display = 'inline';
+            searchInput.focus();
+        }
+    }
+
+    function hideSearchBar() {
+        const searchInput = document.getElementById('searchInput');
+        const searchIcon = document.getElementById('searchIcon');
+        const closeIcon = document.getElementById('closeIcon');
+
+        searchInput.classList.remove('active');
+        searchIcon.style.display = 'inline';
+        closeIcon.style.display = 'none';
+    }
+</script>
+</head>
+<body>
+
+    <!-- header section -->
+    <div class="header">
+        <!-- logo -->
+        <div class="logo">
+            <a href="index.html">
+                <img src="https://logovectorseek.com/wp-content/uploads/2020/07/university-of-illinois-at-chicago-uic-logo-vector.png" alt="UIC Logo" class="logo-image">
+            </a>
+        </div>
+
+        <!-- text -->
+        <div class="header-text">Teacher's Assistant Queue Home</div>
+        
+        <!-- buttons (anchored right) -->
+        <!-- <div class="button-container">
+            <a href="dropdown.html" class="header-button">blah</a>
+            <a href="graphs.html" class="header-button">blah</a>
+        </div> -->
+
+        <!-- search bar -->
+        <div class="search-container">
+            <img id="searchIcon" class="search-icon" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQDUpnCtDO2QZ3O9cfBCBqXXWu3eu6VJ7IUA&s" alt="Search" onclick="toggleSearchBar()">
+            <input type="text" id="searchInput" class="search-input" placeholder="Course Search...">
+            <img id="closeIcon" class="close-icon" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnqiLR3xiG_HRhQgCVDyShki-nSf6dbGK9HA&s" alt="Close" onclick="hideSearchBar()">
+        </div>
+    </div>
+</body>
+</html>
