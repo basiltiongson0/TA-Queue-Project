@@ -94,8 +94,12 @@ getDoc(queueDocRef4).then((docSnap) => {
         elapsedTimeArray = storedTime;
         const totalTimeSpent = elapsedTimeArray.reduce((a, b) => a + b, 0);  // Calculate total time
         console.log(`Total time previously spent: ${totalTimeSpent} seconds`);
+
         taEst = docSnap.data().estimate || 0;
         displayTimeEst(taEst * currQueue.length);  // Display the initial total time on page load
+
+        timerStartTime = Date.now(); 
+        startTimer(); 
     } else {
         console.log("No queue document found. Creating a new one...");
         setDoc(queueDocRef4, { estimate: 0 });
@@ -134,20 +138,8 @@ removeButton.addEventListener('click', function() {
         console.log("Queue is empty. Timer will not start.");
         return;  // Do nothing if the queue is empty
     }
+    
 
-    if (!isTimerRunning) {
-        // Timer is not running, so start the timer
-        timerStartTime = Date.now();  // Capture the start time of this interval
-        isTimerRunning = true;  // Set the flag to indicate timer is running
-        console.log("Timer started...");
-       
-        // Update the display to show "0" when timer starts
-        elapsedTimeDisplay.textContent = "0";  // Reset to 0 seconds when the timer starts
-
-
-        // Start updating the timer every second
-        startTimer();
-    }
 
     // elapsedTimeDisplay.textContent = "0";
     // timerStartTime = Date.now();
