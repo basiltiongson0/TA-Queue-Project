@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Queue History Graph</title>
+   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div id="header"></div>
+
+   <h1>Queue History - Time Spent Per Student</h1>
+   <canvas id="time-spent-chart" width="800" height="400"></canvas>
+
+   <script type="module">
+       // Import Firebase services
+       import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.2/firebase-app.js";
+       import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.1.2/firebase-firestore.js";
+
+       // Firebase configuration
+       const firebaseConfig = {
+           apiKey: "AIzaSyBXaPIq6nfeQa2qETjLPt379-TIMd_Oz8o",
+           authDomain: "database1-53083.firebaseapp.com",
+           projectId: "database1-53083",
+           storageBucket: "database1-53083.appspot.com",
+           messagingSenderId: "862586413669",
+           appId: "1:862586413669:web:71beb08bde5ae8df9adc8c",
+           measurementId: "G-DHSPFQRQYR"
+       };
+
+       // Initialize Firebase
+       const app = initializeApp(firebaseConfig);
+       const db = getFirestore(app);
+
+       // Firestore reference to the `TAestimate` document under `queue2`
+       const queueDocRef = doc(db, "queue2", "TAestimate");
+
+       // Fetch data from Firestore and plot the chart
+       async function fetchDataAndPlot() {
+           const docSnap = await getDoc(queueDocRef);
+
+           if (docSnap.exists()) {
+               // Get elapsed time data and the estimate
+               const totalTimeSpent = docSnap.data().totalTimeSpent || [];
+               const estimate = docSnap.data().estimate || 0;
+
+               // Prepare chart data
+               const labels = totalTimeSpent.map((_, index) => `Student ${index + 1}`);
+               const data = totalTimeSpent;
+
+               // Create Chart.js chart
+               const ctx = document.getElementById('time-spent-chart').getContext('2d');
+               const config = {
+                   type: 'bar',
+                   data: {
+                       labels: labels,
+                       datasets: [{
+                           label: 'Time Spent (seconds)',
+                           data: data,
+                           backgroundColor: 'rgba(8, 29, 115, 0.300)',
+                           borderColor: 'rgba(8, 29, 115, 0.693)',
+                           borderWidth: 1
+                       }]
+                   },
+                   options: {
+                       responsive: true,
+                       plugins: {
+                           legend: { position: 'top' },
+                           title: { display: true, text: 'Time Spent Per Student' },
+                           annotation: {
+                               annotations: {
+                                   estimateLine: {
+                                       type: 'line',
+                                       yMin: estimate,
+                                       yMax: estimate,
+                                       borderColor: 'red',
+                                       borderWidth: 2,
+                                       label: {
+                                           display: true,
+                                           content: `Estimated Time (${estimate} seconds)`,
+                                           position: 'end',
+                                           backgroundColor: 'rgba(255, 99, 132, 0.8)',
+                                           color: '#fff',
+                                           font: { weight: 'bold' }
+                                       }
+                                   }
+                               }
+                           }
+                       },
+                       scales: {
+                           y: {
+                               beginAtZero: true,
+                               title: {
+                                   display: true,
+                                   text: 'Time (seconds)'
+                               }
+                           },
+                           x: {
+                               title: {
+                                   display: true,
+                                   text: 'Students'
+                               }
+                           }
+                       }
+                   }
+               };
+
+               new Chart(ctx, config);
+           } else {
+               console.log("No data found for queue2/TAestimate.");
+           }
+       }
+
+       // Fetch data and plot the chart
+       fetchDataAndPlot();
+   </script>
+</body>
+    <!-- javascript to load header -->
+    <script>
+        fetch('header.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('header').innerHTML = data;
+    
+            const searchInput = document.getElementById('searchInput');
+            const searchIcon = document.getElementById('searchIcon');
+            const closeIcon = document.getElementById('closeIcon');
+    
+            // search bar toggle
+            function toggleSearchBar() {
+                const isActive = searchInput.classList.contains('active');
+    
+                if (isActive) {
+                    searchInput.classList.remove('active');
+                    searchIcon.style.display = 'inline';
+                    closeIcon.style.display = 'none';
+                } else {
+                    searchInput.classList.add('active');
+                    searchIcon.style.display = 'none';
+                    closeIcon.style.display = 'inline';
+                    searchInput.focus();
+                }
+            }
+    
+            // event listeners
+            searchIcon.addEventListener('click', toggleSearchBar);
+            closeIcon.addEventListener('click', toggleSearchBar);
+    
+            // redirect on enter
+            searchInput.addEventListener('keydown', function (event) {
+                if (event.key === 'Enter') {
+                    const inputValue = searchInput.value;
+                    if (inputValue) {
+                        const encodedVal = encodeURIComponent(inputValue);
+                        window.location.href = `search.html?input=${encodedVal}`;
+                    }
+                }
+            });
+        })
+        .catch(error => console.error('Header loading error:', error));
+    </script>
+</html>

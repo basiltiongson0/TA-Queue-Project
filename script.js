@@ -28,9 +28,9 @@ const timeButton = document.getElementById('time-button');
 const taEstimate = document.getElementById('ta-estimate');
 const totalTime = document.getElementById('total-time');
 
-let timerStartTime = 0;  // Variable to store the start time of the timer
-let isTimerRunning = false;  // Boolean flag to check if the timer is running
-let totalTimeElapsed = 0;  // Variable to store the total elapsed time
+let timerStartTime = 0;  // timer start time
+let isTimerRunning = false;  
+let totalTimeElapsed = 0;
 let timerEndTime = 0;
 
 // Function to display the name list
@@ -90,6 +90,10 @@ let taEst = 0;
 const queueDocRef4 = doc(db, classInput, "TAestimate");
 getDoc(queueDocRef4).then((docSnap) => {
     if (docSnap.exists()) {
+        const storedTime = docSnap.data().totalTimeSpent || [];
+        elapsedTimeArray = storedTime;
+        const totalTimeSpent = elapsedTimeArray.reduce((a, b) => a + b, 0);  // Calculate total time
+        console.log(`Total time previously spent: ${totalTimeSpent} seconds`);
         taEst = docSnap.data().estimate || 0;
         displayTimeEst(taEst * currQueue.length);  // Display the initial total time on page load
     } else {

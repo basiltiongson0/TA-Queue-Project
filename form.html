@@ -154,8 +154,23 @@
     <!--takes ta input for estimated time to complete each student-->
     <div class="time-estimate">
         <input type="text" id="ta-estimate" placeholder="Time per student">
-        <button id="time-button">Estimated Time</button>
+        <button id="time-button">Add Estimated Time</button>
     </div>
+
+    <!-- information image and data for TA -->
+    <div style="text-align: center;">
+        <img 
+            id="info-icon" 
+            src="https://img.icons8.com/?size=100&id=Su0viqkUpIfe&format=png&color=000000" 
+            alt="info icon" 
+            style="cursor: pointer; width: 24px; height: 24px; margin-top: 20px;" 
+            title="Click for details :)"
+        />
+        <div id="info-text-container" style="height: 0; overflow: hidden; transition: height 0.3s ease;">
+            <p id="info-text" style="margin-top: 5px; margin-bottom: 0;">*The information below is displayed to students*</p>
+        </div>
+    </div>
+    
     <h2 id="total-time"></h2>
 
     <!--adds names to queue-->
@@ -236,6 +251,19 @@
         .catch(error => console.error('Header loading error:', error));
     </script>
 
+    <!-- javascript for the informatino button -->
+    <script>
+        document.getElementById("info-icon").addEventListener("click", () => {
+            const infoContainer = document.getElementById("info-text-container");
+    
+            if (infoContainer.style.height === "0px" || !infoContainer.style.height) {
+                infoContainer.style.height = infoContainer.scrollHeight + "px"; // expand to content height
+            } else {
+                infoContainer.style.height = "0px"; // back to zero height
+            }
+        });
+    </script>
+
     <script>
         // function to enable/disable the button
         function validateInputs() {
@@ -264,7 +292,6 @@
             questionSelect.addEventListener("change", validateInputs);
         });
     </script>
-
 
     <script type="module" src ="script.js"></script>
 </body>
