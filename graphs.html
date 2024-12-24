@@ -10,20 +10,71 @@
         margin-left: 15px;
         color: rgb(81, 81, 81); 
     }
+
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+    }
+
+    .dropdown-container {
+        position: fixed; 
+        top: 25; /* at the top of the page */
+        width: 100%; /* width of the page */
+        background-color: none; 
+        padding: 5px;
+        /* box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);  */
+        z-index: 100; /* stay above all content */
+        text-align: left; 
+        margin-left: 10px; 
+    }
+
+    #class-selector {
+        padding: 10px;
+        margin: 0; 
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        background-color: white;
+        color: #333; /* text color */ 
+        width: 220px;
+        appearance: none;
+        cursor: pointer;
+        text-align: center;
+    }
+
+    #class-selector:hover {
+        background-color: #e6e6f2;
+        border-color: #21248e;
+    }
+
+    #class-selector option {
+        padding: 10px;
+        background-color: #fff;
+        color: #21248e;
+        font-size: 16px;
+    }
+
 </style>
 </head>
 <body>
     <div id="header"></div>
 
    <h1>Queue History</h1>
+   <div class="dropdown-container">
+    <select id="class-selector" placeholder="Select Class">
+        <option value="" disabled selected>Select Class</option>
+        <option value="queue2/TAestimate">Class 1</option>
+        <option value="queue3/TAestimate">Class 2</option>
+        <option value="queue4/TAestimate">Class 3</option>
+    </select>
+    </div>
    <canvas id="time-spent-chart" width="800" height="400"></canvas>
 
    <script type="module">
-       // Import Firebase services
        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.2/firebase-app.js";
        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.1.2/firebase-firestore.js";
 
-       // Firebase configuration
        const firebaseConfig = {
            apiKey: "AIzaSyBXaPIq6nfeQa2qETjLPt379-TIMd_Oz8o",
            authDomain: "database1-53083.firebaseapp.com",
@@ -34,95 +85,94 @@
            measurementId: "G-DHSPFQRQYR"
        };
 
-       // Initialize Firebase
        const app = initializeApp(firebaseConfig);
        const db = getFirestore(app);
 
-       // Firestore reference to the `TAestimate` document under `queue2`
-       const queueDocRef = doc(db, "queue2", "TAestimate");
+       const classSelector = document.getElementById('class-selector');
+       const chartCanvas = document.getElementById('time-spent-chart');
+       let chartInstance;
 
-       // Fetch data from Firestore and plot the chart
-       async function fetchDataAndPlot() {
-        const docSnap = await getDoc(queueDocRef);
+       async function fetchDataAndPlot(classPath) {
+           const queueDocRef = doc(db, ...classPath.split('/'));
+           const docSnap = await getDoc(queueDocRef);
 
-        if (docSnap.exists()) {
-            // Get elapsed time data and the estimate
-            const totalTimeSpent = docSnap.data().totalTimeSpent || [];
-            const estimate = docSnap.data().estimate || 0;
+           if (docSnap.exists()) {
+               const totalTimeSpent = docSnap.data().totalTimeSpent || [];
+               const estimate = docSnap.data().estimate || 0;
 
-            // Convert data to minutes
-            const totalTimeSpentInMinutes = totalTimeSpent.map(seconds => (seconds / 60).toFixed(2));
-            const estimateInMinutes = (estimate / 60).toFixed(2);
+               const totalTimeSpentInMinutes = totalTimeSpent.map(seconds => (seconds / 60).toFixed(2));
+               const estimateInMinutes = (estimate / 60).toFixed(2);
+               const labels = totalTimeSpent.map((_, index) => `Student ${index + 1}`);
+               const data = totalTimeSpentInMinutes;
 
-            // Prepare chart data
-            const labels = totalTimeSpent.map((_, index) => `Student ${index + 1}`);
-            const data = totalTimeSpentInMinutes;
+               const config = {
+                   type: 'bar',
+                   data: {
+                       labels: labels,
+                       datasets: [{
+                           label: 'Time Spent (minutes)',
+                           data: data,
+                           backgroundColor: 'rgba(8, 29, 115, 0.300)',
+                           borderColor: 'rgba(8, 29, 115, 0.693)',
+                           borderWidth: 1
+                       }]
+                   },
+                   options: {
+                       responsive: true,
+                       plugins: {
+                           legend: { position: 'top' },
+                           title: { display: true, text: 'Time Spent Per Student' },
+                           annotation: {
+                               annotations: {
+                                   estimateLine: {
+                                       type: 'line',
+                                       yMin: estimateInMinutes,
+                                       yMax: estimateInMinutes,
+                                       borderColor: 'red',
+                                       borderWidth: 2,
+                                       label: {
+                                           display: true,
+                                           content: `Estimated Time (${estimateInMinutes} minutes)`,
+                                           position: 'end',
+                                           backgroundColor: 'rgba(255, 99, 132, 0.8)',
+                                           color: '#fff',
+                                           font: { weight: 'bold' }
+                                       }
+                                   }
+                               }
+                           }
+                       },
+                       scales: {
+                           y: {
+                               beginAtZero: true,
+                               title: { display: true, text: 'Time (minutes)' }
+                           },
+                           x: {
+                               title: { display: true, text: 'Students' }
+                           }
+                       }
+                   }
+               };
 
-            // Create Chart.js chart
-            const ctx = document.getElementById('time-spent-chart').getContext('2d');
-            const config = {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Time Spent (minutes)',
-                        data: data,
-                        backgroundColor: 'rgba(8, 29, 115, 0.300)',
-                        borderColor: 'rgba(8, 29, 115, 0.693)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: { position: 'top' },
-                        title: { display: true, text: 'Time Spent Per Student' },
-                        annotation: {
-                            annotations: {
-                                estimateLine: {
-                                    type: 'line',
-                                    yMin: estimateInMinutes,
-                                    yMax: estimateInMinutes,
-                                    borderColor: 'red',
-                                    borderWidth: 2,
-                                    label: {
-                                        display: true,
-                                        content: `Estimated Time (${estimateInMinutes} minutes)`,
-                                        position: 'end',
-                                        backgroundColor: 'rgba(255, 99, 132, 0.8)',
-                                        color: '#fff',
-                                        font: { weight: 'bold' }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'Time (minutes)'
-                            }
-                        },
-                        x: {
-                            title: {
-                                display: true,
-                                text: 'Students'
-                            }
-                        }
-                    }
-                }
-            };
-            new Chart(ctx, config);
-        } else {
-            console.log("No data found for queue2/TAestimate.");
-        }
-    }
-       // Fetch data and plot the chart
-       fetchDataAndPlot();
+               if (chartInstance) {
+                   chartInstance.destroy();
+               }
+
+               chartInstance = new Chart(chartCanvas.getContext('2d'), config);
+           } else {
+               console.log(`No data found for ${classPath}.`);
+           }
+       }
+
+       classSelector.addEventListener('change', (e) => {
+           fetchDataAndPlot(e.target.value);
+       });
+
+       fetchDataAndPlot(classSelector.value);
    </script>
 </body>
+</html>
+
     <!-- javascript to load header -->
     <script>
         fetch('header.html')
