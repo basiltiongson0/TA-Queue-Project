@@ -53,8 +53,17 @@ function printHelpList() {
     });
 }
 
-function displayTimeEst(time){
-    totalTime.textContent = `Estimated Queue Time: ${time} minutes`;
+// changes from 59 minutes to one hour and so on
+function displayTimeEst(time) {
+    if (time < 60) {
+        totalTime.textContent = `Estimated Queue Time: ${time} minute${time === 1 ? "" : "s"}`;
+    } else {
+        const hours = Math.floor(time / 60);
+        const minutes = time % 60;
+        const hourText = `${hours} hour${hours === 1 ? "" : "s"}`;
+        const minuteText = minutes > 0 ? ` and ${minutes} minute${minutes === 1 ? "" : "s"}` : "";
+        totalTime.textContent = `Estimated Queue Time: ${hourText}${minuteText}`;
+    }
 }
 
 // Get data from Firestore for names (queue)
