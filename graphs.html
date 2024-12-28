@@ -18,30 +18,29 @@
     }
 
     .dropdown-container {
-        position: fixed; 
-        top: 25; /* at the top of the page */
-        width: 100%; /* width of the page */
-        background-color: none; 
+        position: fixed;
+        top: 25;
+        width: 100%;
+        background-color: none;
         padding: 5px;
-        /* box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);  */
-        z-index: 100; /* stay above all content */
-        text-align: left; 
-        margin-left: 10px; 
+        z-index: 100;
+        text-align: left;
+        margin-left: 10px;
     }
 
     #class-selector {
         padding: 10px;
-        margin: 0; 
+        margin: 0;
         border: 1px solid #ccc;
         border-radius: 5px;
         font-size: 16px;
         background-color: white;
-        color: #333; /* text color */ 
+        color: #333;
         width: 220px;
         appearance: none;
         cursor: pointer;
         text-align: center;
-        outline: none; /* gets rid of ugly blue ring */ 
+        outline: none;
     }
 
     #class-selector:hover {
@@ -56,125 +55,178 @@
         font-size: 16px;
     }
 
+    .view-toggle {
+        display: none;
+        margin-left: 10px;
+        margin-top: 10px;
+    }
+
+    .view-toggle button {
+        padding: 8px 16px;
+        margin-right: 10px;
+        border: 1px solid #21248e;
+        border-radius: 5px;
+        background-color: white;
+        color: #21248e;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .view-toggle button.active {
+        background-color: #21248e;
+        color: white;
+    }
+
+    .view-toggle button:hover {
+        background-color: #e6e6f2;
+    }
 </style>
 </head>
 <body>
     <div id="header"></div>
 
-   <h1>Queue History</h1>
-   <div class="dropdown-container">
-    <select id="class-selector" placeholder="Select Class">
-        <option value="" disabled selected>Select Class</option>
-        <option value="queues/TAestimate">CS 100</option>
-        <option value="queue2/TAestimate">CS 107</option>
-        <option value="queue4/TAestimate">Class 3</option>
-    </select>
+    <h1>Queue History</h1>
+    <div class="dropdown-container">
+        <select id="class-selector" placeholder="Select Class">
+            <option value="" disabled selected>Select Class</option>
+            <option value="queues">CS 100</option>
+            <option value="queue2">CS 107</option>
+            <option value="queue4">Class 3</option>
+        </select>
+        <div class="view-toggle" id="view-toggle">
+            <button id="daily-btn" class="active">Today</button>
+            <button id="weekly-btn">Week</button>
+        </div>
     </div>
-   <canvas id="time-spent-chart" width="800" height="400"></canvas>
+    <canvas id="time-spent-chart" width="800" height="400"></canvas>
 
-   <script type="module">
-       import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.2/firebase-app.js";
-       import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.1.2/firebase-firestore.js";
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.2/firebase-app.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.1.2/firebase-firestore.js";
 
-       const firebaseConfig = {
-           apiKey: "AIzaSyBXaPIq6nfeQa2qETjLPt379-TIMd_Oz8o",
-           authDomain: "database1-53083.firebaseapp.com",
-           projectId: "database1-53083",
-           storageBucket: "database1-53083.appspot.com",
-           messagingSenderId: "862586413669",
-           appId: "1:862586413669:web:71beb08bde5ae8df9adc8c",
-           measurementId: "G-DHSPFQRQYR"
-       };
+        const firebaseConfig = {
+            apiKey: "AIzaSyBXaPIq6nfeQa2qETjLPt379-TIMd_Oz8o",
+            authDomain: "database1-53083.firebaseapp.com",
+            projectId: "database1-53083",
+            storageBucket: "database1-53083.appspot.com",
+            messagingSenderId: "862586413669",
+            appId: "1:862586413669:web:71beb08bde5ae8df9adc8c",
+            measurementId: "G-DHSPFQRQYR"
+        };
 
-       const app = initializeApp(firebaseConfig);
-       const db = getFirestore(app);
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
 
-       const classSelector = document.getElementById('class-selector');
-       const chartCanvas = document.getElementById('time-spent-chart');
-       let chartInstance;
+        const classSelector = document.getElementById('class-selector');
+        const chartCanvas = document.getElementById('time-spent-chart');
+        const viewToggle = document.getElementById('view-toggle');
+        const dailyBtn = document.getElementById('daily-btn');
+        const weeklyBtn = document.getElementById('weekly-btn');
+        let chartInstance;
+        let currentClass = '';
+        let currentView = 'daily';
 
-       async function fetchDataAndPlot(classPath) {
-           const queueDocRef = doc(db, ...classPath.split('/'));
-           const docSnap = await getDoc(queueDocRef);
+        async function fetchDataAndPlot(classPath, view) {
+            const docName = view === 'daily' ? 'TAestimate' : 'weeklyTAestimate';
+            const queueDocRef = doc(db, classPath, docName);
+            const docSnap = await getDoc(queueDocRef);
 
-           if (docSnap.exists()) {
-               const totalTimeSpent = docSnap.data().totalTimeSpent || [];
-               const estimate = docSnap.data().estimate || 0;
+            if (docSnap.exists()) {
+                const data = docSnap.data();
+                let timeData, labels;
 
-               const totalTimeSpentInMinutes = totalTimeSpent.map(seconds => (seconds / 60).toFixed(2));
-               const estimateInMinutes = (estimate / 60).toFixed(2);
-               const labels = totalTimeSpent.map((_, index) => `Student ${index + 1}`);
-               const data = totalTimeSpentInMinutes;
+                if (view === 'daily') {
+                    timeData = data.totalTimeSpent || [];
+                    labels = timeData.map((_, index) => `Student ${index + 1}`);
+                } else {
+                    timeData = data.timePerDay || [];
+                    const studentsPerDay = data.studentsPerDay || [];
+                    labels = timeData.map((_, index) => `Day ${index + 1} (${studentsPerDay[index] || 0} students)`);
+                }
 
-               const config = {
-                   type: 'bar',
-                   data: {
-                       labels: labels,
-                       datasets: [{
-                           label: 'Time Spent (minutes)',
-                           data: data,
-                           backgroundColor: 'rgba(8, 29, 115, 0.300)',
-                           borderColor: 'rgba(8, 29, 115, 0.693)',
-                           borderWidth: 1
-                       }]
-                   },
-                   options: {
-                       responsive: true,
-                       plugins: {
-                           legend: { position: 'top' },
-                           title: { display: true, text: 'Time Spent Per Student' },
-                           annotation: {
-                               annotations: {
-                                   estimateLine: {
-                                       type: 'line',
-                                       yMin: estimateInMinutes,
-                                       yMax: estimateInMinutes,
-                                       borderColor: 'red',
-                                       borderWidth: 2,
-                                       label: {
-                                           display: true,
-                                           content: `Estimated Time (${estimateInMinutes} minutes)`,
-                                           position: 'end',
-                                           backgroundColor: 'rgba(255, 99, 132, 0.8)',
-                                           color: '#fff',
-                                           font: { weight: 'bold' }
-                                       }
-                                   }
-                               }
-                           }
-                       },
-                       scales: {
-                           y: {
-                               beginAtZero: true,
-                               title: { display: true, text: 'Time (minutes)' }
-                           },
-                           x: {
-                               title: { display: true, text: 'Students' }
-                           }
-                       }
-                   }
-               };
+                const timeInMinutes = timeData.map(seconds => (seconds / 60).toFixed(2));
+                const estimate = (data.estimate || 0) / 60;
 
-               if (chartInstance) {
-                   chartInstance.destroy();
-               }
+                const config = {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: view === 'daily' ? 'Time per Student (minutes)' : 'Average Time per Day (minutes)',
+                            data: timeInMinutes,
+                            backgroundColor: 'rgba(8, 29, 115, 0.300)',
+                            borderColor: 'rgba(8, 29, 115, 0.693)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: { position: 'top' },
+                            title: { 
+                                display: true, 
+                                text: view === 'daily' ? 'Time Spent Per Student' : 'Average Time Spent Per Day'
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: { display: true, text: 'Time (minutes)' }
+                            },
+                            x: {
+                                title: { 
+                                    display: true, 
+                                    text: view === 'daily' ? 'Students' : 'Days'
+                                }
+                            }
+                        }
+                    }
+                };
 
-               chartInstance = new Chart(chartCanvas.getContext('2d'), config);
-           } else {
-               console.log(`No data found for ${classPath}.`);
-           }
-       }
+                if (chartInstance) {
+                    chartInstance.destroy();
+                }
 
-       classSelector.addEventListener('change', (e) => {
-           fetchDataAndPlot(e.target.value);
-       });
+                chartInstance = new Chart(chartCanvas.getContext('2d'), config);
+            } else {
+                console.log(`No data found for ${classPath}/${docName}`);
+            }
+        }
 
-       fetchDataAndPlot(classSelector.value);
-   </script>
-</body>
-</html>
+        classSelector.addEventListener('change', (e) => {
+            currentClass = e.target.value;
+            if (currentClass) {
+                viewToggle.style.display = 'block';
+                fetchDataAndPlot(currentClass, currentView);
+            } else {
+                viewToggle.style.display = 'none';
+            }
+        });
 
-    <!-- javascript to load header -->
+        dailyBtn.addEventListener('click', () => {
+            if (currentView !== 'daily') {
+                currentView = 'daily';
+                dailyBtn.classList.add('active');
+                weeklyBtn.classList.remove('active');
+                if (currentClass) {
+                    fetchDataAndPlot(currentClass, currentView);
+                }
+            }
+        });
+
+        weeklyBtn.addEventListener('click', () => {
+            if (currentView !== 'weekly') {
+                currentView = 'weekly';
+                weeklyBtn.classList.add('active');
+                dailyBtn.classList.remove('active');
+                if (currentClass) {
+                    fetchDataAndPlot(currentClass, currentView);
+                }
+            }
+        });
+    </script>
+
+    <!-- javascript for header -->
     <script>
         fetch('header.html')
         .then(response => response.text())
@@ -218,4 +270,5 @@
         })
         .catch(error => console.error('Header loading error:', error));
     </script>
+</body>
 </html>

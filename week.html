@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TA Hours Queue</title>
+    <script type="module">
+        // Import the Firebase modules
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.2/firebase-app.js";
+        import { getFirestore, doc, getDoc, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/9.1.2/firebase-firestore.js";
+
+
+        // Your Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBXaPIq6nfeQa2qETjLPt379-TIMd_Oz8o",
+            authDomain: "database1-53083.firebaseapp.com",
+            projectId: "database1-53083",
+            storageBucket: "database1-53083.firebasestorage.app",
+            messagingSenderId: "862586413669",
+            appId: "1:862586413669:web:71beb08bde5ae8df9adc8c",
+            measurementId: "G-DHSPFQRQYR"
+        };
+
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app); // Get Firestore instance
+
+
+        // Function to update document with average and size
+        async function updateDocumentWithAverage(collectionName) {
+            const sourceDocRef = doc(db, collectionName, 'TAestimate');
+            const targetDocRef = doc(db, collectionName, 'weeklyTAestimate');
+
+
+            try {
+                // Get the array from the source document
+                const sourceDoc = await getDoc(sourceDocRef);
+                if (!sourceDoc.exists()) {
+                    console.log('Source document not found!');
+                    return;
+                }
+
+
+                const sourceArray = sourceDoc.data().totalTimeSpent;
+                if (!Array.isArray(sourceArray) || sourceArray.length === 0) {
+                    console.log('Array is empty or not an array!');
+                    return;
+                }
+
+
+                console.log("Source Array:", sourceArray);
+
+
+                // Calculate the average
+                const sum = sourceArray.reduce((acc, val) => acc + val, 0);
+                const average = sum / sourceArray.length;
+                console.log("Calculated Average:", average);
+
+
+                // Calculate the size of the totalTimeSpent array
+                const arraySize = sourceArray.length;
+                console.log("Size of totalTimeSpent array:", arraySize);
+
+
+                // Get the target document to update its array fields
+                const targetDoc = await getDoc(targetDocRef);
+                if (!targetDoc.exists()) {
+                    console.log('Target document not found!');
+                    return;
+                }
+
+
+                const targetArray = targetDoc.data().timePerDay || [];
+                console.log("Target Array before update:", targetArray);
+
+
+                // Push the average into the target document's timePerDay array using arrayUnion
+                await updateDoc(targetDocRef, {
+                    timePerDay: arrayUnion(average),
+                    studentsPerDay: arrayUnion(arraySize) // Push the size of totalTimeSpent array into studentsPerDay
+                });
+
+
+                console.log('Firestore update successful!');
+
+
+                // Update the UI with the pushed average
+                const averageDisplay = document.getElementById('averageDisplay');
+                averageDisplay.textContent = `The pushed average is: ${average} and students per day: ${arraySize}`;
+            } catch (error) {
+                console.error('Error updating document:', error);
+                const averageDisplay = document.getElementById('averageDisplay');
+                averageDisplay.textContent = "Error occurred. Please try again.";
+            }
+        }
+
+
+        // Event listener for the button
+        document.getElementById('averageButton').addEventListener('click', async () => {
+            const collectionSelector = document.getElementById('collectionSelector');
+            const selectedCollection = collectionSelector.value;
+            await updateDocumentWithAverage(selectedCollection); // Pass the selected collection to the function
+        });
+    </script>
+</head>
+
+
+<body>
+    <a href="graphs.html">Graphs link</a>
+    <h2>Select a Collection</h2>
+    <!-- Dropdown to select the collection -->
+    <select id="collectionSelector">
+        <option value="queues">CS 100</option>
+        <option value="queue2">CS 107</option>
+        <!-- Add more collection options here if needed -->
+    </select>
+
+
+    <button id="averageButton">Calculate and Push Average</button>
+    <div id="averageDisplay">The average will be displayed here.</div>
+</body>
+
+
+</html>
