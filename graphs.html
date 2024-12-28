@@ -111,8 +111,8 @@
         </select>
         <div class="view-toggle" id="view-toggle">
             <button id="daily-btn" class="active">Today</button>
-            <button id="weekly-btn">Week</button>
-            <button id="update-weekly-btn">Update Weekly Data</button>
+            <button id="weekly-btn">Period</button>
+            <button id="update-weekly-btn">Update Period Data</button>
         </div>
     </div>
     <canvas id="time-spent-chart" width="800" height="400"></canvas>
@@ -181,14 +181,14 @@
                         studentsPerDay: newStudentsPerDay
                     });
 
-                    console.log('Weekly data updated successfully');
+                    console.log('Period data updated successfully');
                     return true;
                 } else {
                     console.log('No changes detected in source data');
                     return false;
                 }
             } catch (error) {
-                console.error('Error updating weekly data:', error);
+                console.error('Error updating period data:', error);
                 return false;
             }
         }
@@ -295,9 +295,9 @@
             if (currentClass) {
                 const success = await updateWeeklyData(currentClass);
                 if (success) {
-                    alert('Weekly data updated successfully!');
+                    alert('Period data updated successfully!');
                 } else {
-                    alert('No changes were made to the weekly data.');
+                    alert('No changes were made to the period data.');
                 }
             } else {
                 alert('Please select a class first.');
