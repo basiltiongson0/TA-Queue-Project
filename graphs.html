@@ -26,6 +26,9 @@
         z-index: 100;
         text-align: left;
         margin-left: 10px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
     }
 
     #class-selector {
@@ -57,19 +60,24 @@
 
     .view-toggle {
         display: none;
-        margin-left: 10px;
-        margin-top: 10px;
+        align-items: center;
     }
 
     .view-toggle button {
-        padding: 8px 16px;
-        margin-right: 10px;
+        padding: 10px 16px;
         border: 1px solid #21248e;
-        border-radius: 5px;
         background-color: white;
         color: #21248e;
         cursor: pointer;
         transition: all 0.3s ease;
+    }
+
+    .view-toggle button:first-child {
+        border-radius: 5px;
+    }
+
+    .view-toggle button:last-child {
+        border-radius: 5px;
     }
 
     .view-toggle button.active {
