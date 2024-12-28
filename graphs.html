@@ -135,41 +135,60 @@
         let currentView = 'daily';
     
         async function updateWeeklyData(classPath) {
-            try {
-                // Get daily data
-                const sourceDocRef = doc(db, classPath, 'TAestimate');
-                const sourceDoc = await getDoc(sourceDocRef);
-    
-                if (!sourceDoc.exists()) {
-                    console.log('Source document not found!');
-                    return false;
-                }
-    
-                const sourceArray = sourceDoc.data().totalTimeSpent;
-                if (!Array.isArray(sourceArray) || sourceArray.length === 0) {
-                    console.log('No data to update!');
-                    return false;
-                }
-    
-                // Calculate average
-                const sum = sourceArray.reduce((acc, val) => acc + val, 0);
-                const average = sum / sourceArray.length;
-                const arraySize = sourceArray.length;
-    
-                // Update weekly data
-                const targetDocRef = doc(db, classPath, 'weeklyTAestimate');
-                await updateDoc(targetDocRef, {
-                    timePerDay: arrayUnion(average),
-                    studentsPerDay: arrayUnion(arraySize)
-                });
-    
-                console.log('Weekly data updated successfully');
-                return true;
-            } catch (error) {
-                console.error('Error updating weekly data:', error);
-                return false;
-            }
+    try {
+        // Get daily data
+        const sourceDocRef = doc(db, classPath, 'TAestimate');
+        const targetDocRef = doc(db, classPath, 'weeklyTAestimate');
+        
+        const [sourceDoc, targetDoc] = await Promise.all([
+            getDoc(sourceDocRef),
+            getDoc(targetDocRef)
+        ]);
+
+        if (!sourceDoc.exists()) {
+            console.log('Source document not found!');
+            return false;
         }
+
+        const sourceArray = sourceDoc.data().totalTimeSpent;
+        if (!Array.isArray(sourceArray) || sourceArray.length === 0) {
+            console.log('No data to update!');
+            return false;
+        }
+
+        // Calculate average and get array size
+        const sum = sourceArray.reduce((acc, val) => acc + val, 0);
+        const average = sum / sourceArray.length;
+        const arraySize = sourceArray.length;
+
+        // Get current data
+        const currentData = targetDoc.exists() ? targetDoc.data() : { timePerDay: [], studentsPerDay: [] };
+        const lastTimePerDay = currentData.timePerDay[currentData.timePerDay.length - 1];
+        const lastStudentsPerDay = currentData.studentsPerDay[currentData.studentsPerDay.length - 1];
+
+        // Check if the source data has changed
+        if (average !== lastTimePerDay || arraySize !== lastStudentsPerDay) {
+            // Create new arrays with updated data
+            const newTimePerDay = [...currentData.timePerDay, average];
+            const newStudentsPerDay = [...currentData.studentsPerDay, arraySize];
+
+            // Update both arrays atomically
+            await updateDoc(targetDocRef, {
+                timePerDay: newTimePerDay,
+                studentsPerDay: newStudentsPerDay
+            });
+
+            console.log('Weekly data updated successfully');
+            return true;
+        } else {
+            console.log('No changes detected in source data');
+            return false;
+        }
+    } catch (error) {
+        console.error('Error updating weekly data:', error);
+        return false;
+    }
+}
     
         async function fetchDataAndPlot(classPath, view) {
             const docName = view === 'daily' ? 'TAestimate' : 'weeklyTAestimate';
@@ -259,23 +278,19 @@
         });
     
         weeklyBtn.addEventListener('click', async () => {
-            if (currentView !== 'weekly') {
-                currentView = 'weekly';
-                weeklyBtn.classList.add('active');
-                dailyBtn.classList.remove('active');
-                
-                if (currentClass) {
-                    // Update the weekly data before displaying it
-                    const updateSuccess = await updateWeeklyData(currentClass);
-                    if (updateSuccess) {
-                        fetchDataAndPlot(currentClass, currentView);
-                    } else {
-                        console.error('Failed to update weekly data');
-                        // Optionally handle the error case differently
-                    }
-                }
-            }
-        });
+    if (currentView !== 'weekly') {
+        currentView = 'weekly';
+        weeklyBtn.classList.add('active');
+        dailyBtn.classList.remove('active');
+        
+        if (currentClass) {
+            // Try to update the weekly data first
+            await updateWeeklyData(currentClass);
+            // Always fetch and plot the data, regardless of update success
+            fetchDataAndPlot(currentClass, currentView);
+        }
+    }
+});
     </script>
     
 
