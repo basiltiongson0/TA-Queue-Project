@@ -137,12 +137,14 @@
     <div id="header"></div>
 
     <!--- for password storage and proper redirection -->
-    <span id="class"></span>
+    <!-- <span id="class"></span> -->
+    <span id="class" data-password="yourSecretPasswordHere"></span>
    
     <!--script for redirrecting to correct class/queue-->
     <script>
         var selectedClass = localStorage.getItem("selectedClass");
-        document.getElementById("class").textContent = selectedClass;
+        // document.getElementById("class").textContent = selectedClass;
+        document.getElementById("class").setAttribute('data-password', selectedClass);
    
     </script>
 

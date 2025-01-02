@@ -68,7 +68,8 @@ function displayTimeEst(time) {
 
 // Get data from Firestore for names (queue)
 let currQueue = [];
-var classInput = document.getElementById('class').textContent;
+// var classInput = document.getElementById('class').textContent;
+var classInput = document.getElementById('class').getAttribute('data-password');
 const queueDocRef = doc(db, classInput, "queue1");
 getDoc(queueDocRef).then((docSnap) => {
     if (docSnap.exists()) {

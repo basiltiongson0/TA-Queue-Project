@@ -138,15 +138,18 @@
 
 <body>
     <div id="header"></div>
+
     <!-- to store password to access specific collection -->
-    <span id="class"></span>
+    <!-- <span id="class"></span> -->
+    <span id="class" data-password="yourSecretPasswordHere"></span>
+
     <script>
         // get the password from local storage
         var storedPassword = localStorage.getItem("userPassword");
 
         if (storedPassword) {
             // display password
-            document.getElementById("class").textContent = storedPassword;
+            document.getElementById("class").setAttribute('data-password', storedPassword);
         } else {
             document.getElementById("class").textContent = "Sorry, couldn't find this password :(";
         }
