@@ -83,19 +83,23 @@
             }
        
             const links = [
-                {name: '100 ~ Discovering CS', url: 'student-form.html?password=queues'},
-                {name: '107 ~ Intro to Computing', url: 'student-form.html?password=queue2'},
-                {name: '109 ~ Programming with MatLab', url: 'student-form.html?password=queues'},
-                {name: '111 ~ Program Design I', url: 'student-form.html?password=queues'},
-                {name: '301 ~ Languages and Automata', url: 'student-form.html?password=queues'},
-                {name: '341 ~ Language Design', url: 'student-form.html?password=queues'},
-                {name: '342 ~ Software Design', url: 'student-form.html?password=queues'},
-                {name: '351 ~ Data Structure Practicum', url: 'student-form.html?password=queues'},
-                {name: '361 ~ Systems Programming', url: 'student-form.html?password=queues'},
-                {name: '362 ~ Computer Design', url: 'student-form.html?password=queues'},
-                {name: '377 ~ Ethical Issues in Computing', url: 'student-form.html?password=queues'},
-                {name: '378 ~ Framework-based Development for Handheld Devices', url: 'student-form.html?password=queues'},
-                {name: '391 ~ Computer Science Practicum', url: 'student-form.html?password=queues'},
+                {name: '100 ~ Discovering CS', className: 'queues'},
+                {name: '107 ~ Intro to Computing', className: 'queue2'},
+                {name: '109 ~ Programming with MatLab', className: 'queue2'},
+                {name: '111 ~ Program Design I', className: 'queue2'},
+                {name: '112 ~ Program Design I Bio Problems', className: 'queue2'},
+                {name: '113 ~ Program Design I Law and Policy', className: 'queue2'},
+                {name: '141 ~ Program Design II', className: 'queues'},
+                {name: '151 ~ Mathematical Foundations of CS', className: 'queue2'},
+                {name: '301 ~ Languages and Automata', className: 'queue2'},
+                {name: '341 ~ Language Design', className: 'queue2'},
+                {name: '342 ~ Software Design', className: 'queue2'},
+                {name: '351 ~ Data Structure Practicum', className: 'queue2'},
+                {name: '361 ~ Systems Programming',className: 'queue2'},
+                {name: '362 ~ Computer Design', className: 'queue2'},
+                {name: '377 ~ Ethical Issues in Computing', className: 'queue2'},
+                {name: '378 ~ Framework-based Development for Handheld Devices', className: 'queues'},
+                {name: '391 ~ Computer Science Practicum', className: 'queue2'},
             ];
 
             const filteredLinks = links.filter(link =>
@@ -107,9 +111,15 @@
             if (filteredLinks.length > 0) {
                 filteredLinks.forEach(link => {
                     const linkElement = document.createElement('a');
-                    linkElement.href = link.url;7
+                    linkElement.href = '#';  // Use "#" to prevent direct navigation
                     linkElement.textContent = link.name;
                     linkElement.classList.add('search-link');
+                    
+                    // Set the onclick event to call the setClass function with the className
+                    linkElement.onclick = function () {
+                        setClass(link.className);
+                    };
+
                     linksContainer.appendChild(linkElement);
                     linksContainer.appendChild(document.createElement('br'));  // For line breaks
                 });
@@ -118,6 +128,14 @@
             }
 
         };
+
+        function setClass(className) {
+            // Store the class info in localStorage
+            localStorage.setItem("selectedClass", className);
+
+            // Redirect to the student form page
+            window.location.href = "student-form.html";  // No password in URL, just a redirect
+        }
 
     </script>
 </head>
