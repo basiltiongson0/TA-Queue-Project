@@ -245,17 +245,19 @@
     <h1>Computer Science Class List</h1>
 
     <!-- 100 Level Courses -->
+    <!--For now name of class and password to access are same, this can be changed-->
+    <!--Firestore database can be updated as classes are needed or passwords changed-->
     <div class="dropdown">
         <button class="dropdown-button">100 Level Courses</button>
         <div class="dropdown-content">
-            <a href="#" onclick="setClass('queues')">100 ~ Discovering CS</a>
-            <a href="#" onclick="setClass('queue2')">107 ~ Intro to Computing</a>
-            <a href="#" onclick="setClass('CS109')">109 ~ Programming with MatLab</a>
-            <a href="#" onclick="setClass('CS111')">111 ~ Program Design I</a>
-            <a href="#" onclick="setClass('CS112')">112 ~ Program Design I Bio Problems</a>
-            <a href="#" onclick="setClass('CS113')">113 ~ Program Design I Law and Policy</a>
-            <a href="#" onclick="setClass('CS141')">141 ~ Program Design II</a>
-            <a href="#" onclick="setClass('CS151')">151 ~ Mathematical Foundations of CS</a>
+            <a href="#" onclick="setClass('CS100','queues')">100 ~ Discovering CS</a>
+            <a href="#" onclick="setClass('CS107','queue2')">107 ~ Intro to Computing</a>
+            <a href="#" onclick="setClass('CS109','CS109')">109 ~ Programming with MatLab</a>
+            <a href="#" onclick="setClass('CS111','CS111')">111 ~ Program Design I</a>
+            <a href="#" onclick="setClass('CS112','CS112')">112 ~ Program Design I Bio Problems</a>
+            <a href="#" onclick="setClass('CS113','CS113')">113 ~ Program Design I Law and Policy</a>
+            <a href="#" onclick="setClass('CS141','CS141')">141 ~ Program Design II</a>
+            <a href="#" onclick="setClass('CS151','CS151')">151 ~ Mathematical Foundations of CS</a>
         </div>
     </div>
 
@@ -263,10 +265,10 @@
     <div class="dropdown">
         <button class="dropdown-button">200 Level Courses</button>
         <div class="dropdown-content">
-            <a href="#" onclick="setClass('CS211')">211 ~ Programming Practicum</a>
-            <a href="#" onclick="setClass('CS251')">251 ~ Data Structures</a>
-            <a href="#" onclick="setClass('CS261')">261 ~ Machine Organization</a>
-            <a href="#" onclick="setClass('CS277')">277 ~ Professional Communications</a>
+            <a href="#" onclick="setClass('CS211','CS211')">211 ~ Programming Practicum</a>
+            <a href="#" onclick="setClass('CS251','CS251')">251 ~ Data Structures</a>
+            <a href="#" onclick="setClass('CS261','CS261')">261 ~ Machine Organization</a>
+            <a href="#" onclick="setClass('CS277','CS277')">277 ~ Professional Communications</a>
         </div>
     </div>
 
@@ -274,73 +276,75 @@
     <div class="dropdown">
         <button class="dropdown-button">300 Level Courses</button>
         <div class="dropdown-content">
-            <a href="#" onclick="setClass('CS301')">301 ~ Languages and Automata</a>
-            <a href="#" onclick="setClass('CS341')">341 ~ Language Design</a>
-            <a href="#" onclick="setClass('CS342')">342 ~ Software Design</a>
-            <a href="#" onclick="setClass('CS351')">351 ~ Data Structure Practicum</a>
-            <a href="#" onclick="setClass('CS361')">361 ~ Systems Programming</a>
-            <a href="#" onclick="setClass('CS362')">362 ~ Computer Design</a>
-            <a href="#" onclick="setClass('CS377')">377 ~ Ethical Issues in Computing</a>
-            <a href="#" onclick="setClass('CS378')">378 ~ Framework-based Development for Handheld Devices</a>
-            <a href="#" onclick="setClass('CS391')">391 ~ Computer Science Practicum</a>
+            <a href="#" onclick="setClass('CS301','CS301')">301 ~ Languages and Automata</a>
+            <a href="#" onclick="setClass('CS341','CS341')">341 ~ Language Design</a>
+            <a href="#" onclick="setClass('CS342','CS342')">342 ~ Software Design</a>
+            <a href="#" onclick="setClass('CS351','CS351')">351 ~ Data Structure Practicum</a>
+            <a href="#" onclick="setClass('CS361','CS361')">361 ~ Systems Programming</a>
+            <a href="#" onclick="setClass('CS362','CS362')">362 ~ Computer Design</a>
+            <a href="#" onclick="setClass('CS377','CS377')">377 ~ Ethical Issues in Computing</a>
+            <a href="#" onclick="setClass('CS378','CS378')">378 ~ Framework-based Development for Handheld Devices</a>
+            <a href="#" onclick="setClass('CS391','CS391')">391 ~ Computer Science Practicum</a>
         </div>
     </div>
 
     <!-- 400 Level Courses -->
+    <!--Links below lare currently placeholders and link to same firestore collection-->
     <div class="dropdown">
         <button class="dropdown-button">400 Level Courses</button>
         <div class="dropdown-content">
-            <a href="#" onclick="setClass('CS401')">401 ~ Computer Algorithms I</a>
-            <a href="#" onclick="setClass('queue2')">402 ~ Algorithms in Practice</a>
-            <a href="#" onclick="setClass('queue2')">407 ~ Economics and Computation</a>
-            <a href="#" onclick="setClass('queue2')">411 ~ Artificial Intelligence</a>
-            <a href="#" onclick="setClass('queue2')">412 ~ Intro to Machine Learning</a>
-            <a href="#" onclick="setClass('queue2')">415 ~ Computer Vision I</a>
-            <a href="#" onclick="setClass('queue2')">418 ~ Intro to Data Science</a>
-            <a href="#" onclick="setClass('queue2')">421 ~ Natural Language Processing</a>
-            <a href="#" onclick="setClass('queue2')">422 ~ UI Design and Programming</a>
-            <a href="#" onclick="setClass('queue2')">423 ~ Natural User Interactions</a>
-            <a href="#" onclick="setClass('queue2')">424 ~ Visualization and Visual Analytics</a>
-            <a href="#" onclick="setClass('queue2')">425 ~ Computer Graphics</a>
-            <a href="#" onclick="setClass('queue2')">426 ~ Video Game Design and Development</a>
-            <a href="#" onclick="setClass('queue2')">427 ~ Creative Coding</a>
-            <a href="#" onclick="setClass('queue2')">428 ~ Virtual, Augmented, and Mixed Reality</a>
-            <a href="#" onclick="setClass('queue2')">440 ~ Software Engineering</a>
-            <a href="#" onclick="setClass('queue2')">441 ~ Engineering Distributed Objects</a>
-            <a href="#" onclick="setClass('queue2')">442 ~ Software Engineering</a>
-            <a href="#" onclick="setClass('queue2')">450 ~ Intro to Networking</a>
-            <a href="#" onclick="setClass('queue2')">453 ~ Intro to Parallel Processing</a>
-            <a href="#" onclick="setClass('queue2')">454 ~ Principles of Concurrent Programming</a>
-            <a href="#" onclick="setClass('queue2')">455 ~ Intro to High Performance Computing</a>
-            <a href="#" onclick="setClass('queue2')">461 ~ Operating Systems Design</a>
-            <a href="#" onclick="setClass('queue2')">463 ~ Systems Performance</a>
-            <a href="#" onclick="setClass('queue2')">466 ~ Computer Architecture</a>
-            <a href="#" onclick="setClass('queue2')">468 ~ Network Security</a>
-            <a href="#" onclick="setClass('queue2')">472 ~ Provably Correct Programming</a>
-            <a href="#" onclick="setClass('queue2')">473 ~ Compiler Design</a>
-            <a href="#" onclick="setClass('queue2')">474 ~ Object Oriented Languages</a>
-            <a href="#" onclick="setClass('queue2')">475 ~ Object Oriented Programming</a>
-            <a href="#" onclick="setClass('queue2')">476 ~ Programming Language Design</a>
-            <a href="#" onclick="setClass('queue2')">477 ~ Public Policy, Legal, and Ethical Issues</a>
-            <a href="#" onclick="setClass('queue2')">478 ~ Software Development for Mobile</a>
-            <a href="#" onclick="setClass('queue2')">479 ~ Wearable and Nearables Technology</a>
-            <a href="#" onclick="setClass('queue2')">480 ~ Database Systems</a>
-            <a href="#" onclick="setClass('queue2')">483 ~ Big Data Mining</a>
-            <a href="#" onclick="setClass('queue2')">484 ~ Secure Web App Development </a>
-            <a href="#" onclick="setClass('queue2')">485 ~ Network Operating Systems Programming</a>
-            <a href="#" onclick="setClass('queue2')">487 ~ Building Secure Computer Systems</a>
-            <a href="#" onclick="setClass('queue2')">488 ~ Introduction to Cryptography</a>
-            <a href="#" onclick="setClass('queue2')">489 ~ Human Augmentics</a>
-            <a href="#" onclick="setClass('queue2')">499 ~ Professional Development Seminar</a>
+            <a href="#" onclick="setClass('CS401','CS401')">401 ~ Computer Algorithms I</a>
+            <a href="#" onclick="setClass('CS402','queue2')">402 ~ Algorithms in Practice</a>
+            <a href="#" onclick="setClass('CS407','queue2')">407 ~ Economics and Computation</a>
+            <a href="#" onclick="setClass('CS411','queue2')">411 ~ Artificial Intelligence</a>
+            <a href="#" onclick="setClass('CS412','queue2')">412 ~ Intro to Machine Learning</a>
+            <a href="#" onclick="setClass('CS415','queue2')">415 ~ Computer Vision I</a>
+            <a href="#" onclick="setClass('CS418','queue2')">418 ~ Intro to Data Science</a>
+            <a href="#" onclick="setClass('CS421','queue2')">421 ~ Natural Language Processing</a>
+            <a href="#" onclick="setClass('CS422','queue2')">422 ~ UI Design and Programming</a>
+            <a href="#" onclick="setClass('CS423','queue2')">423 ~ Natural User Interactions</a>
+            <a href="#" onclick="setClass('CS424','queue2')">424 ~ Visualization and Visual Analytics</a>
+            <a href="#" onclick="setClass('CS425','queue2')">425 ~ Computer Graphics</a>
+            <a href="#" onclick="setClass('CS426','queue2')">426 ~ Video Game Design and Development</a>
+            <a href="#" onclick="setClass('CS427','queue2')">427 ~ Creative Coding</a>
+            <a href="#" onclick="setClass('CS428','queue2')">428 ~ Virtual, Augmented, and Mixed Reality</a>
+            <a href="#" onclick="setClass('CS440','queue2')">440 ~ Software Engineering</a>
+            <a href="#" onclick="setClass('CS441','queue2')">441 ~ Engineering Distributed Objects</a>
+            <a href="#" onclick="setClass('CS442','queue2')">442 ~ Software Engineering</a>
+            <a href="#" onclick="setClass('CS450','queue2')">450 ~ Intro to Networking</a>
+            <a href="#" onclick="setClass('CS453','queue2')">453 ~ Intro to Parallel Processing</a>
+            <a href="#" onclick="setClass('CS454','queue2')">454 ~ Principles of Concurrent Programming</a>
+            <a href="#" onclick="setClass('CS455','queue2')">455 ~ Intro to High Performance Computing</a>
+            <a href="#" onclick="setClass('CS461','queue2')">461 ~ Operating Systems Design</a>
+            <a href="#" onclick="setClass('CS463','queue2')">463 ~ Systems Performance</a>
+            <a href="#" onclick="setClass('CS466','queue2')">466 ~ Computer Architecture</a>
+            <a href="#" onclick="setClass('CS468','queue2')">468 ~ Network Security</a>
+            <a href="#" onclick="setClass('CS472','queue2')">472 ~ Provably Correct Programming</a>
+            <a href="#" onclick="setClass('CS473','queue2')">473 ~ Compiler Design</a>
+            <a href="#" onclick="setClass('CS474','queue2')">474 ~ Object Oriented Languages</a>
+            <a href="#" onclick="setClass('CS475','queue2')">475 ~ Object Oriented Programming</a>
+            <a href="#" onclick="setClass('CS476','queue2')">476 ~ Programming Language Design</a>
+            <a href="#" onclick="setClass('CS477','queue2')">477 ~ Public Policy, Legal, and Ethical Issues</a>
+            <a href="#" onclick="setClass('CS478','queue2')">478 ~ Software Development for Mobile</a>
+            <a href="#" onclick="setClass('CS479','queue2')">479 ~ Wearable and Nearables Technology</a>
+            <a href="#" onclick="setClass('CS480','queue2')">480 ~ Database Systems</a>
+            <a href="#" onclick="setClass('CS483','queue2')">483 ~ Big Data Mining</a>
+            <a href="#" onclick="setClass('CS484','queue2')">484 ~ Secure Web App Development </a>
+            <a href="#" onclick="setClass('CS485','queue2')">485 ~ Network Operating Systems Programming</a>
+            <a href="#" onclick="setClass('CS487','queue2')">487 ~ Building Secure Computer Systems</a>
+            <a href="#" onclick="setClass('CS488','queue2')">488 ~ Introduction to Cryptography</a>
+            <a href="#" onclick="setClass('CS489','queue2')">489 ~ Human Augmentics</a>
+            <a href="#" onclick="setClass('CS499','queue2')">499 ~ Professional Development Seminar</a>
         </div>
     </div>
 
     <!-- Secure links script -->
     <script>
     // This function stores the class info in localStorage and redirects
-    function setClass(className) {
+    function setClass(className, classPass) {
         // Store the class name in localStorage
         localStorage.setItem("selectedClass", className);
+        localStorage.setItem("classPassword", classPass);
 
         // Redirect to the student-form.html (or another target page)
         window.location.href = "student-form.html";
