@@ -250,12 +250,12 @@
         <div class="dropdown-content">
             <a href="#" onclick="setClass('queues')">100 ~ Discovering CS</a>
             <a href="#" onclick="setClass('queue2')">107 ~ Intro to Computing</a>
-            <a href="#" onclick="setClass('queue2')">109 ~ Programming with MatLab</a>
-            <a href="#" onclick="setClass('queue2')">111 ~ Program Design I</a>
-            <a href="#" onclick="setClass('queue2')">112 ~ Program Design I Bio Problems</a>
-            <a href="#" onclick="setClass('queue2')">113 ~ Program Design I Law and Policy</a>
-            <a href="#" onclick="setClass('queue2')">141 ~ Program Design II</a>
-            <a href="#" onclick="setClass('queue2')">151 ~ Mathematical Foundations of CS</a>
+            <a href="#" onclick="setClass('CS109')">109 ~ Programming with MatLab</a>
+            <a href="#" onclick="setClass('CS111')">111 ~ Program Design I</a>
+            <a href="#" onclick="setClass('CS112')">112 ~ Program Design I Bio Problems</a>
+            <a href="#" onclick="setClass('CS113')">113 ~ Program Design I Law and Policy</a>
+            <a href="#" onclick="setClass('CS141')">141 ~ Program Design II</a>
+            <a href="#" onclick="setClass('CS151')">151 ~ Mathematical Foundations of CS</a>
         </div>
     </div>
 
@@ -263,10 +263,10 @@
     <div class="dropdown">
         <button class="dropdown-button">200 Level Courses</button>
         <div class="dropdown-content">
-            <a href="#" onclick="setClass('queues')">211 ~ Programming Practicum</a>
-            <a href="#" onclick="setClass('queue2')">251 ~ Data Structures</a>
-            <a href="#" onclick="setClass('queue2')">261 ~ Machine Organization</a>
-            <a href="#" onclick="setClass('queue2')">277 ~ Professional Communications</a>
+            <a href="#" onclick="setClass('CS211')">211 ~ Programming Practicum</a>
+            <a href="#" onclick="setClass('CS251')">251 ~ Data Structures</a>
+            <a href="#" onclick="setClass('CS261')">261 ~ Machine Organization</a>
+            <a href="#" onclick="setClass('CS277')">277 ~ Professional Communications</a>
         </div>
     </div>
 
@@ -274,15 +274,15 @@
     <div class="dropdown">
         <button class="dropdown-button">300 Level Courses</button>
         <div class="dropdown-content">
-            <a href="#" onclick="setClass('queues')">301 ~ Languages and Automata</a>
-            <a href="#" onclick="setClass('queues')">341 ~ Language Design</a>
-            <a href="#" onclick="setClass('queues')">342 ~ Software Design</a>
-            <a href="#" onclick="setClass('queue2')">351 ~ Data Structure Practicum</a>
-            <a href="#" onclick="setClass('queue2')">361 ~ Systems Programming</a>
-            <a href="#" onclick="setClass('queue2')">362 ~ Computer Design</a>
-            <a href="#" onclick="setClass('queue2')">377 ~ Ethical Issues in Computing</a>
-            <a href="#" onclick="setClass('queue2')">378 ~ Framework-based Development for Handheld Devices</a>
-            <a href="#" onclick="setClass('queue2')">391 ~ Computer Science Practicum</a>
+            <a href="#" onclick="setClass('CS301')">301 ~ Languages and Automata</a>
+            <a href="#" onclick="setClass('CS341')">341 ~ Language Design</a>
+            <a href="#" onclick="setClass('CS342')">342 ~ Software Design</a>
+            <a href="#" onclick="setClass('CS351')">351 ~ Data Structure Practicum</a>
+            <a href="#" onclick="setClass('CS361')">361 ~ Systems Programming</a>
+            <a href="#" onclick="setClass('CS362')">362 ~ Computer Design</a>
+            <a href="#" onclick="setClass('CS377')">377 ~ Ethical Issues in Computing</a>
+            <a href="#" onclick="setClass('CS378')">378 ~ Framework-based Development for Handheld Devices</a>
+            <a href="#" onclick="setClass('CS391')">391 ~ Computer Science Practicum</a>
         </div>
     </div>
 
@@ -290,7 +290,7 @@
     <div class="dropdown">
         <button class="dropdown-button">400 Level Courses</button>
         <div class="dropdown-content">
-            <a href="#" onclick="setClass('queue2')">401 ~ Computer Algorithms I</a>
+            <a href="#" onclick="setClass('CS401')">401 ~ Computer Algorithms I</a>
             <a href="#" onclick="setClass('queue2')">402 ~ Algorithms in Practice</a>
             <a href="#" onclick="setClass('queue2')">407 ~ Economics and Computation</a>
             <a href="#" onclick="setClass('queue2')">411 ~ Artificial Intelligence</a>
@@ -356,12 +356,28 @@
         }
 
         // Check TA key input
+        // function checkInput() {
+        //     var correctKey = "queues";
+        //     var correctKey2 = "queue2";
+        //     var input = document.getElementById('ta-input').value;
+
+        //     if (input === correctKey || input === correctKey2) {
+        //         localStorage.setItem("userPassword", input);
+        //         window.location.href = "form.html";
+        //     } else {
+        //         alert("Sorry! Not a valid TA key. Please try again...");
+        //     }
+        // }
         function checkInput() {
-            var correctKey = "queues";
-            var correctKey2 = "queue2";
+            var correctKeys = ["queues", "queue2", "CS107", "CS111", "CS112",
+                "CS113", "CS141", "CS151", "CS211", "CS251", "CS261", "CS277",
+                "CS301", "CS341", "CS342", "CS351", "CS361", "CS362", "CS377", 
+                "CS378", "CS391", "CS401"
+             ];
             var input = document.getElementById('ta-input').value;
 
-            if (input === correctKey || input === correctKey2) {
+            // Check if the input matches any of the correct keys
+            if (correctKeys.includes(input)) {
                 localStorage.setItem("userPassword", input);
                 window.location.href = "form.html";
             } else {
