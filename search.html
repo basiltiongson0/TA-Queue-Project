@@ -163,7 +163,7 @@
                     
                     // Set the onclick event to call the setClass function with the className
                     linkElement.onclick = function () {
-                        setClass(link.className);
+                        setClass(link.name, link.className);
                     };
 
                     linksContainer.appendChild(linkElement);
@@ -175,12 +175,21 @@
 
         };
 
-        function setClass(className) {
-            // Store the class info in localStorage
-            localStorage.setItem("selectedClass", className);
+        // function setClass(className) {
+        //     // Store the class info in localStorage
+        //     localStorage.setItem("selectedClass", className);
 
-            // Redirect to the student form page
-            window.location.href = "student-form.html";  // No password in URL, just a redirect
+        //     // Redirect to the student form page
+        //     window.location.href = "student-form.html";  // No password in URL, just a redirect
+        // }
+        // This function stores the class info in localStorage and redirects
+        function setClass(className, classPass) {
+            // Store the class name in localStorage
+            localStorage.setItem("selectedClass", className);
+            localStorage.setItem("classPassword", classPass);
+
+            // Redirect to the student-form.html (or another target page)
+            window.location.href = "student-form.html";
         }
 
     </script>
