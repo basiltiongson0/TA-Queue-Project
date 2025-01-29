@@ -1,256 +1,311 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TA Hours Queue</title>
-    <script src="https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>TA Hours Queue</title>
+   <script src="https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js"></script>
+   <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f8f9fa;
-            color: #333;
-            text-align: center;
-        }
 
-        h1 {
-            margin: 20px 0;
-            color: #21248e;
-        }
+   <style>
+       body {
+           font-family: Arial, sans-serif;
+           margin: 0;
+           padding: 0;
+           background-color: #f8f9fa;
+           color: #333;
+           text-align: center;
+       }
 
-        input {
-            padding: 10px;
-            margin: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 16px;
-            width: 200px;
-        }
 
-        button {
-            padding: 10px 15px;
-            font-size: 16px;
-            color: white;
-            background-color: #21248e;
-            border: 1px solid #21248e;
-            border-radius: 5px;
-            cursor: pointer;
-            margin: 10px;
-        }
+       h1 {
+           margin: 20px 0;
+           color: #21248e;
+       }
 
-        button:hover {
-            background-color: white;
-            color: #21248e;
-        }
 
-        ul {
-            list-style: none;
-            padding: 0;
-            margin: 20px auto;
-            max-width: 300px;
-            background: #fff;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
+       input {
+           padding: 10px;
+           margin: 10px;
+           border: 1px solid #ccc;
+           border-radius: 4px;
+           font-size: 16px;
+           width: 200px;
+       }
 
-        li {
-            padding: 10px;
-            border-bottom: 1px solid #eee;
-        }
 
-        li:last-child {
-            border-bottom: none;
-        }
+       button {
+           padding: 10px 15px;
+           font-size: 16px;
+           color: white;
+           background-color: #21248e;
+           border: 1px solid #21248e;
+           border-radius: 5px;
+           cursor: pointer;
+           margin: 10px;
+       }
 
-        .links {
-            margin-top: 30px;
-        }
 
-        .links a {
-            color: #21248e;
-            text-decoration: none;
-            font-weight: bold;
-        }
+       button:hover {
+           background-color: white;
+           color: #21248e;
+       }
 
-        .links a:hover {
-            text-decoration: underline;
-        }
 
-        .body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
+       ul {
+           list-style: none;
+           padding: 0;
+           margin: 20px auto;
+           max-width: 300px;
+           background: #fff;
+           border: 1px solid #ddd;
+           border-radius: 5px;
+       }
 
-        .container {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            align-items: flex-start;
-        }
 
-        ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-            width: 200px;
-        }
+       li {
+           padding: 10px;
+           border-bottom: 1px solid #eee;
+       }
 
-        #mySelect {
-            padding: 10px;
-            margin: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-            background-color: white; /* #f8f9fa; */
-            color: #ccc;
-            width: 220px;
-            appearance: none; /* Removes default dropdown arrow*/
-            cursor: pointer;
-            text-align: center;
-            outline: none; /* gets rid of ugly blue ring */ 
-        }
 
-        #mySelect:hover {
-            background-color: #e6e6f2;
-            border-color: #21248e;
-        }
+       li:last-child {
+           border-bottom: none;
+       }
 
-        #mySelect option {
-            padding: 10px;
-            background-color: #fff;
-            color: #21248e;
-            font-size: 16px;
-        }
 
-    </style>
+       .links {
+           margin-top: 30px;
+       }
+
+
+       .links a {
+           color: #21248e;
+           text-decoration: none;
+           font-weight: bold;
+       }
+
+
+       .links a:hover {
+           text-decoration: underline;
+       }
+
+
+       .body {
+           display: flex;
+           justify-content: center;
+           align-items: center;
+           height: 100vh;
+           margin: 0;
+       }
+
+
+       .container {
+           display: flex;
+           gap: 20px;
+           justify-content: center;
+           align-items: flex-start;
+       }
+
+
+       ul {
+           list-style-type: none;
+           padding: 0;
+           margin: 0;
+           width: 200px;
+       }
+
+
+       #mySelect {
+           padding: 10px;
+           margin: 10px;
+           border: 1px solid #ccc;
+           border-radius: 4px;
+           font-size: 16px;
+           background-color: white; /* #f8f9fa; */
+           color: #ccc;
+           width: 180px;
+           appearance: none; /* removes default dropdown arrow*/
+           cursor: pointer;
+           text-align: center;
+           outline: none; /* gets rid of ugly blue ring */
+       }
+
+
+       #mySelect:hover {
+           background-color: #e6e6f2;
+           border-color: #21248e;
+       }
+
+
+       #mySelect option {
+           padding: 10px;
+           background-color: #fff;
+           color: #21248e;
+           font-size: 16px;
+       }
+
+
+       /* styling for the question input box only */
+       #details {
+           width: 220px;
+       }
+
+
+   </style>
 </head>
 
+
 <body>
-    <div id="header"></div>
-
-    <!--- for password storage and proper redirection -->
-    <span id="class-name"></span>
-    <span id="class" data-password="yourSecretPasswordHere"></span>
-   
-    <!--script for redirrecting to correct class/queue-->
-    <script>
-        var selectedClass = localStorage.getItem("selectedClass");
-        var classPassword = localStorage.getItem("classPassword");
-
-        document.getElementById("class-name").textContent = selectedClass;
-        document.getElementById("class").setAttribute('data-password', classPassword);
-   
-    </script>
-
-     <!--time estimate-->
-     <h2 id="total-time"></h2>
-
-    <!-- adds names to queue -->
-    <div class="input-container">
-        <input type="text" id="name" placeholder="Name">
-        <select id="mySelect" placeholder="Question Type">
-            <option value="" disabled selected>Question Type</option>
-            <option value="Project">Project</option>
-            <option value="Homework">Homework</option>
-            <option value="Lab">Lab</option>
-            <option value="Other">Other</option>
-        </select>
-        <button id="name-button">Add to Queue</button>
-    </div>
-
-    <div class="container">
-        <ul id="name-list"></ul>
-        <ul id="help-list"></ul>
-    </div>
-
-    <div class="links">
-        <a href="dropdown.html">← Back to Classes</a>
-    </div>
-
-    <!-- javascript to load header -->
-    <script>
-        fetch('header.html')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('header').innerHTML = data;
-    
-            const searchInput = document.getElementById('searchInput');
-            const searchIcon = document.getElementById('searchIcon');
-            const closeIcon = document.getElementById('closeIcon');
-    
-            // search bar toggle
-            function toggleSearchBar() {
-                const isActive = searchInput.classList.contains('active');
-    
-                if (isActive) {
-                    searchInput.classList.remove('active');
-                    searchIcon.style.display = 'inline';
-                    closeIcon.style.display = 'none';
-                } else {
-                    searchInput.classList.add('active');
-                    searchIcon.style.display = 'none';
-                    closeIcon.style.display = 'inline';
-                    searchInput.focus();
-                }
-            }
-    
-            // event listeners
-            searchIcon.addEventListener('click', toggleSearchBar);
-            closeIcon.addEventListener('click', toggleSearchBar);
-    
-            // redirect on enter
-            searchInput.addEventListener('keydown', function (event) {
-                if (event.key === 'Enter') {
-                    const inputValue = searchInput.value;
-                    if (inputValue) {
-                        const encodedVal = encodeURIComponent(inputValue);
-                        window.location.href = `search.html?input=${encodedVal}`;
-                    }
-                }
-            });
-        })
-        .catch(error => console.error('Header loading error:', error));
-    </script>
-
-    <script>
-        // function to enable/disable the button
-        function validateInputs() {
-            const nameInput = document.getElementById("name");
-            const questionSelect = document.getElementById("mySelect");
-            const addButton = document.getElementById("name-button");
-
-            // enable the button only if both fields are valid
-            if (nameInput.value.trim() !== "" && questionSelect.value !== "") {
-                addButton.disabled = false;
-            } else {
-                addButton.disabled = true;
-            }
-        }
-
-        document.addEventListener("DOMContentLoaded", () => {
-            const nameInput = document.getElementById("name");
-            const questionSelect = document.getElementById("mySelect");
-            const addButton = document.getElementById("name-button");
-
-            // initially disable the button
-            addButton.disabled = true;
-
-            // add event listeners to validate inputs on change
-            nameInput.addEventListener("input", validateInputs);
-            questionSelect.addEventListener("change", validateInputs);
-        });
-    </script>
+   <div id="header"></div>
 
 
-    <script type="module" src="script.js"></script>
+   <!--- for password storage and proper redirection -->
+   <span id="class-name"></span>
+   <span id="class" data-password="yourSecretPasswordHere"></span>
+ 
+   <!--script for redirrecting to correct class/queue-->
+   <script>
+       var selectedClass = localStorage.getItem("selectedClass");
+       var classPassword = localStorage.getItem("classPassword");
+
+
+       document.getElementById("class-name").textContent = selectedClass;
+       document.getElementById("class").setAttribute('data-password', classPassword);
+ 
+   </script>
+
+
+    <!--time estimate-->
+    <h2 id="total-time"></h2>
+
+
+   <!-- adds names to queue -->
+   <div class="input-container">
+       <!-- input for student name -->
+       <input type="text" id="name" placeholder="Name">
+
+
+       <!-- dropdown select for question type -->
+       <select id="mySelect" placeholder="Question Type">
+           <option value="" disabled selected>Question Type</option>
+           <option value="Project">Project</option>
+           <option value="Homework">Homework</option>
+           <option value="Lab">Lab</option>
+           <option value="Other">Other</option>
+       </select>
+
+
+       <!-- specifics for student question -->
+       <input type="text" id="details" placeholder="Your Question">
+
+
+       <button id="name-button">Add to Queue</button>
+   </div>
+
+
+   <div class="container">
+       <ul id="name-list"></ul>
+       <ul id="help-list"></ul>
+   </div>
+
+
+   <div class="links">
+       <a href="dropdown.html">← Back to Classes</a>
+   </div>
+
+
+   <!-- javascript to load header -->
+   <script>
+       fetch('header.html')
+       .then(response => response.text())
+       .then(data => {
+           document.getElementById('header').innerHTML = data;
+  
+           const searchInput = document.getElementById('searchInput');
+           const searchIcon = document.getElementById('searchIcon');
+           const closeIcon = document.getElementById('closeIcon');
+  
+           // search bar toggle
+           function toggleSearchBar() {
+               const isActive = searchInput.classList.contains('active');
+  
+               if (isActive) {
+                   searchInput.classList.remove('active');
+                   searchIcon.style.display = 'inline';
+                   closeIcon.style.display = 'none';
+               } else {
+                   searchInput.classList.add('active');
+                   searchIcon.style.display = 'none';
+                   closeIcon.style.display = 'inline';
+                   searchInput.focus();
+               }
+           }
+  
+           // event listeners
+           searchIcon.addEventListener('click', toggleSearchBar);
+           closeIcon.addEventListener('click', toggleSearchBar);
+  
+           // redirect on enter
+           searchInput.addEventListener('keydown', function (event) {
+               if (event.key === 'Enter') {
+                   const inputValue = searchInput.value;
+                   if (inputValue) {
+                       const encodedVal = encodeURIComponent(inputValue);
+                       window.location.href = `search.html?input=${encodedVal}`;
+                   }
+               }
+           });
+       })
+       .catch(error => console.error('Header loading error:', error));
+   </script>
+
+
+   <script>
+       // function to enable/disable the button
+       function validateInputs() {
+           const nameInput = document.getElementById("name");
+           const questionSelect = document.getElementById("mySelect");
+           const addButton = document.getElementById("name-button");
+
+
+           // enable the button only if both fields are valid
+           if (nameInput.value.trim() !== "" && questionSelect.value !== "") {
+               addButton.disabled = false;
+           } else {
+               addButton.disabled = true;
+           }
+       }
+
+
+       document.addEventListener("DOMContentLoaded", () => {
+           const nameInput = document.getElementById("name");
+           const questionSelect = document.getElementById("mySelect");
+           const addButton = document.getElementById("name-button");
+
+
+           // initially disable the button
+           addButton.disabled = true;
+
+
+           // add event listeners to validate inputs on change
+           nameInput.addEventListener("input", validateInputs);
+           questionSelect.addEventListener("change", validateInputs);
+       });
+   </script>
+
+
+
+
+   <script type="module" src="script.js"></script>
 </body>
 
+
 </html>
+
+
+

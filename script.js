@@ -23,6 +23,8 @@ const nameList = document.getElementById('name-list');
 const removeButton = document.getElementById('remove-button');
 const helpType = document.getElementById('mySelect');
 const helpList = document.getElementById('help-list');
+const qString = document.getElementById('details');
+const qOut = document.getElementById('question-list');
 
 const timeButton = document.getElementById('time-button');
 const taEstimate = document.getElementById('ta-estimate');
@@ -50,6 +52,14 @@ function printHelpList() {
         const li = document.createElement('li');
         li.textContent = item;
         helpList.appendChild(li);
+    });
+}
+function printQuestionList() {
+    qOut.innerHTML = "";
+    questions.forEach(function(item) {
+        const li = document.createElement('li');
+        li.textContent = item;
+        qOut.appendChild(li);
     });
 }
 
@@ -116,6 +126,18 @@ getDoc(queueDocRef4).then((docSnap) => {
     }
 });
 
+let questions = [];
+const queueDocRef6 = doc(db, classInput, "details");
+getDoc(queueDocRef6).then((docSnap) => {
+    if (docSnap.exists()) {
+        questions = docSnap.data().details || [];
+        printQuestionList();
+    } else {
+        console.log("No queue document found. Creating a new one...");
+        setDoc(queueDocRef6, { details: [] });
+    }
+});
+
 // Update estimated time based on queue length and TA's estimate
 function updateEstimatedTime(){
     const totalTimeEstimate = taEst * currQueue.length;  // Calculate total time based on the current queue
@@ -126,14 +148,18 @@ function updateEstimatedTime(){
 nameButton.addEventListener('click', function() {
     const name = nameInput.value;
     const help = helpType.value;  // help type
+    const detail = qString.value;
     if (name) {
         currQueue.push(name);
         helpQueue.push(help);  // help type
+        questions.push(detail);
         // Save to Firestore
         setDoc(queueDocRef, { names: currQueue });
+        setDoc(queueDocRef6, { details: questions });
         setDoc(queueDocRef2, { help: helpQueue });
         printNameList();
         printHelpList();
+        printQuestionList();
         updateEstimatedTime();
     }
     nameInput.value = ""; // clear input box when name is entered
@@ -172,10 +198,13 @@ removeButton.addEventListener('click', function() {
 
     currQueue.shift();
     helpQueue.shift();  // help type
+    questions.shift();
     setDoc(queueDocRef, { names: currQueue });
     setDoc(queueDocRef2, { help: helpQueue });
+    setDoc(queueDocRef6, { details: questions });
     printNameList();
     printHelpList();
+    printQuestionList();
     updateEstimatedTime();
 });
 
@@ -207,3 +236,38 @@ timeButton.addEventListener('click', function(){
             });
     }
 });
+
+
+const toggleVisibility = document.getElementById('toggle-visibility');
+const inputContainer = document.getElementById('input-container');
+
+// Reference to Firestore document for visibility
+const visibilityRef = firebase.firestore().collection('queues').doc('visibility');
+
+// Function to sync visibility across users
+function syncVisibilityFromFirestore() {
+    visibilityRef.onSnapshot((doc) => {
+        const isVisible = doc.data().isVisible;
+        // Update the UI based on the Firestore value
+        if (isVisible) {
+            inputContainer.style.display = 'block';
+            toggleVisibility.checked = true;
+        } else {
+            inputContainer.style.display = 'none';
+            toggleVisibility.checked = false;
+        }
+    });
+}
+
+// Listen for changes in the checkbox and update Firestore
+toggleVisibility.addEventListener('change', () => {
+    const isVisible = toggleVisibility.checked;
+
+    // Update Firestore with the new visibility state
+    visibilityRef.set({
+        isVisible: isVisible
+    }, { merge: true });
+});
+
+// Sync the visibility when the page loads
+syncVisibilityFromFirestore();

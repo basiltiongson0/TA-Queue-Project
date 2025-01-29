@@ -232,6 +232,7 @@
 </head>
 
 <body>
+    <a href ="update.html">prof update json</a>
     <div id="header"></div>
     <!-- little button that reveals TA login -->
     <button class="toggle-button" onclick="toggleTAAccess(); triggerSparkleEffect(event)">TA Access</button>
@@ -264,13 +265,49 @@
     <!-- 200 Level Courses -->
     <div class="dropdown">
         <button class="dropdown-button">200 Level Courses</button>
-        <div class="dropdown-content">
-            <a href="#" onclick="setClass('CS211','CS211')">211 ~ Programming Practicum</a>
+        <div class="dropdown-content" id = "courseDropdown">
+            <!-- <a href="#" onclick="setClass('CS211','CS211')">211 ~ Programming Practicum</a>
             <a href="#" onclick="setClass('CS251','CS251')">251 ~ Data Structures</a>
             <a href="#" onclick="setClass('CS261','CS261')">261 ~ Machine Organization</a>
-            <a href="#" onclick="setClass('CS277','CS277')">277 ~ Professional Communications</a>
+            <a href="#" onclick="setClass('CS277','CS277')">277 ~ Professional Communications</a> -->
         </div>
     </div>
+    <script>
+
+        function setClass(className, classPass) {
+            // Store the class name in localStorage
+            localStorage.setItem("selectedClass", className);
+            localStorage.setItem("classPassword", classPass);
+
+            // Redirect to the student-form.html (or another target page)
+            window.location.href = "student-form.html";
+        }
+
+        function populateDropdown(data){
+            const dropdownContent = document.getElementById('courseDropdown');
+            dropdownContent.innerHTML = '';
+
+            data.courses.forEach(course => {
+                const courseElement = document.createElement('a');
+                courseElement.href = '#';
+                courseElement.textContent = `${course.code}, ${course.name}`;
+                courseElement.onclick = function() {
+                    setClass(course.name, course.id);
+                };
+                dropdownContent.appendChild(courseElement);
+            });
+        }
+
+        fetch('options.json')
+            .then(response => response.json())
+            .then(data => {
+                populateDropdown(data);
+            })
+            .catch(error => {
+                console.error('Error fetching JSON:', error);
+            });
+            
+    </script>
 
     <!-- 300 Level Courses -->
     <div class="dropdown">

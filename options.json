@@ -1,0 +1,8 @@
+{
+    "courses": [
+        {"code": "CS211", "name": "Programming Practicum", "id": "CS211"},
+        {"code": "CS251", "name": "Data Structures", "id": "CS251"},
+        {"code": "CS261", "name": "Machine Organization", "id": "CS261"},
+        {"code": "CS277", "name": "Professional Communications", "id": "CS277"}
+    ]
+}
