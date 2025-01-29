@@ -163,6 +163,7 @@ nameButton.addEventListener('click', function() {
         updateEstimatedTime();
     }
     nameInput.value = ""; // clear input box when name is entered
+    qString.value = "";
 });
 
 const elapsedTimeDisplay = document.getElementById('elapsed-time');
